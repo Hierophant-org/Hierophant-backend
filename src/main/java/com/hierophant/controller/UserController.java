@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +20,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hierophant.model.AuthRequest;
 import com.hierophant.model.User;
 import com.hierophant.service.UserService;
+import com.hierophant.util.JwtToken;
 
 @RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
-@CrossOrigin(origins = "*") // this exposes this controller to all ports, might need config this but for now I will commented out
+//@CrossOrigin(origins = "*") // this exposes this controller to all ports, might need config this but for now I will commented out
+@CrossOrigin(origins="http://localhost:4200/")
 public class UserController {
 	// our controller needs to call its dependency which is our UserService
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private JwtToken jwtUtil;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
 	// GET request that reads the id from the query parameter
 	// ResponseEntity allows us to send back custom HTTP status & headers within the
@@ -51,6 +62,7 @@ public class UserController {
 	}
 
 	// Using post to accomadate create crud
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we set in the model
 	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP RequestBody
 		System.out.println("THE OBJECT IS " + u.toString());
@@ -71,5 +83,23 @@ public class UserController {
 		userService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
+	@GetMapping("/home")
+	public String welcome() {
+		return "The token worked y'all";
+	}
+	
+	@PostMapping("/authenticate")
+	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception{
+		try {
+			authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+			);
+			return jwtUtil.generateJwtToken(authRequest.getUsername());
+		}
+		catch(Exception ex) {
+			throw new Exception("invalid username/passwrod");
+		}
+				
+	}
 }
