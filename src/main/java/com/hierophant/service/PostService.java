@@ -1,6 +1,7 @@
 package com.hierophant.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hierophant.model.Post;
+import com.hierophant.model.User;
 import com.hierophant.repository.PostDao;
 
 @Service
@@ -129,10 +131,24 @@ public class PostService {
 			log.warn("In PostService.deleteById() id was invalid. Returning false.");
 		}		
 	}
-	
+	public List<User> findUserByPost(){
+		try {
+			return postDao.findAllIncludeUser();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public List<Post> findAll() {
 		try {
-			return postDao.findAll();
+			List<Post> p=postDao.findAll();
+			List<User> u=findUserByPost();
+			for(int i =0; i<p.size(); i++) {
+				p.get(i).setUserId(u.get(i));
+				System.out.println(p.get(i).getUserId().getUserId());
+			}
+			return p;
 		} catch(IllegalArgumentException e)
 		{
 			log.warn("In PostService.findAll() something went wrong. Returning null.");

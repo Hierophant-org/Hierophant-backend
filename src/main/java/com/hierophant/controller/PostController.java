@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hierophant.model.Post;
+import com.hierophant.model.User;
 import com.hierophant.service.PostService;
 
 @RestController
@@ -40,6 +41,11 @@ public class PostController {
 	public ResponseEntity<List<Post>> findAll() {
 		return ResponseEntity.ok(postService.findAll());
 	}
+	@GetMapping("/findAllUsers")
+	public ResponseEntity<List<User>> findAllUsers() {
+		return ResponseEntity.ok(postService.findUserByPost());
+	}
+
 //	@GetMapping("/user/{username}")
 //	public ResponseEntity<List<Post>> findByUserName(@PathVariable("username") String userName) {
 ////		return null;
