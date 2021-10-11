@@ -15,8 +15,6 @@ import com.hierophant.errorhandling.ApiError;
 import com.hierophant.errorhandling.ApiValidationError;
 import com.hierophant.exceptions.UserNotFoundException;
 
-
-
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	

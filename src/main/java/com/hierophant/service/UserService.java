@@ -1,11 +1,15 @@
 package com.hierophant.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +18,10 @@ import com.hierophant.model.User;
 import com.hierophant.repository.UserDao;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
+	User userObj;
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -102,6 +107,17 @@ public class UserService {
 				log.warn("In UserService.findAll() Something went wrong. Returning null.");
 				return null;
 			}			
+		}
+
+		@Override
+		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+			Optional<User> u = userDao.findByUsername(username);
+			
+			u.ifPresent(val -> {
+				userObj = val;
+			});
+			return new org.springframework.security.core.userdetails.User(userObj.getUsername(), userObj.getPassword(), new ArrayList<>());  
+			
 		}
 	
 }

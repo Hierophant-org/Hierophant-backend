@@ -1,25 +1,20 @@
 package com.hierophant.model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -54,12 +49,14 @@ public class User {
 	@Email // must contain @ and .something
 	private String email;// user email, email format
 	
-	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
-	 @Column(nullable = true)
+//	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
+	@OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it. 
+	@Column(nullable = true)
 	 @JsonManagedReference(value="userPost")
 	 private List<Post> posts;
 
-	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
+	 //@OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
+	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
 	 @Column(nullable = true)
 	 @JsonManagedReference(value="userCom")
 	 private List<Comment> comments;

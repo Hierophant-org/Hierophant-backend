@@ -28,14 +28,16 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int comId;// unique id for each comment
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
+//	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
 	@JoinTable(name = "userComment",
 			inverseJoinColumns={@JoinColumn(name="userId")}
 			)
 	@JsonBackReference(value="userCom")
 	private User userId;
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Post.class)
+//	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Post.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity=Post.class)
 	@JoinTable(name = "comPost", 
 			inverseJoinColumns={@JoinColumn(name="postId")})
 	@JsonBackReference(value="postCom")
