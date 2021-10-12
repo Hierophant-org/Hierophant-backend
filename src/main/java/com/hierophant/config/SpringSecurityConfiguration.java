@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,42 +21,56 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtAuthorizationFilter;
 
-@Configuration
+//@Configuration
+//@EnableWebSecurity
+//implements ApplicationContextAware
 @EnableWebSecurity
-public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter implements ApplicationContextAware  {
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   {
 	
 	@Autowired
 	private JwtAuthorizationFilter jwtFilter;
 	@Autowired
 	private UserService userService;
 	
-//	@Override
-//	public void configure(WebSecurity web) throws Exception {
-//		web.ignoring().antMatchers("/v2/api-docs",
-//      "/configuration/ui",
-//      "/swagger-resources/**",
-//      "/configuration/security",
-//      "/swagger-ui.html",
-//      "/webjars/**",
-//      "/h2-console/**",
-//      "/users/register",
-//      "/posts/**",
-//      "/images/**",
-//      "/comments/**");
-//	}
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(
+	            "/*.html",
+	            "/favicon.ico",
+	            "/**/*.html",
+	            "/**/*.css",
+	            "/**/*.js",
+	            "/h2-console/**"
+	         );
+	}
 	
 	@Override 
 	public void configure(HttpSecurity http) throws Exception {
-		http.cors().disable();
-		http.csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.POST, "/users/register").permitAll()
-		.antMatchers(HttpMethod.POST, "/users/authenticate").permitAll()
-		.antMatchers(HttpMethod.POST, "http://localhost:4200/register").permitAll()
-		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-		.anyRequest().authenticated()
-		.and().exceptionHandling().and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//		http.cors().disable();
+//		http.csrf().disable().authorizeRequests()
+//		.antMatchers(HttpMethod.POST, "**/users/register").permitAll()
+//		.antMatchers(HttpMethod.POST, "/users/authenticate").permitAll()
+//		.antMatchers(HttpMethod.POST, "http://localhost:4200/users/register").permitAll()
+//		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+//		.anyRequest().authenticated()
+//		.and().exceptionHandling().and()
+//		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		http
+        .cors()
+      .and()
+        .csrf()
+        .disable()
+        .exceptionHandling()
+         .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+     .and()
+        .authorizeRequests()
+        .antMatchers("/users/authenticate").permitAll()
+          .antMatchers("/users/register").permitAll()
+        .anyRequest().authenticated();
 	}
 	
 	

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hierophant.HierophantApplication;
 import com.hierophant.model.AuthRequest;
 import com.hierophant.model.User;
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtToken;
+
+import jdk.internal.org.jline.utils.Log;
 
 @RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
@@ -39,6 +44,8 @@ public class UserController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	private static Logger log = LoggerFactory.getLogger(UserController.class);
 
 	// GET request that reads the id from the query parameter
 	// ResponseEntity allows us to send back custom HTTP status & headers within the
