@@ -22,13 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hierophant.HierophantApplication;
 import com.hierophant.model.AuthRequest;
 import com.hierophant.model.User;
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtToken;
-
-import jdk.internal.org.jline.utils.Log;
 
 @RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
