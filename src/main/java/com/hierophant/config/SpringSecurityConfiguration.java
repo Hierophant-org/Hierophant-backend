@@ -37,7 +37,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	            "/**/*.html",
 	            "/**/*.css",
 	            "/**/*.js",
-	            "/h2-console/**"
+	            "/h2-console/**",
+	            "http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/**"
 	         );
 	}
 	
@@ -68,6 +69,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/users/register").permitAll()
           .antMatchers("/posts/findAll").permitAll()
           .antMatchers("/posts/findAllUsers").permitAll()
+          .antMatchers("http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/**").permitAll()
         .anyRequest().authenticated();
 	}
 	
