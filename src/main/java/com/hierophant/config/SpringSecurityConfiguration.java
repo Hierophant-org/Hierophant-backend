@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtAuthorizationFilter;
@@ -75,6 +76,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
         .anyRequest().authenticated();
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	
