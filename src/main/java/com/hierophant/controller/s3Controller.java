@@ -20,7 +20,8 @@ import com.hierophant.service.s3Service;
 @RequestMapping("/s3")
 public class s3Controller {
 
-	s3Service s3Service = new s3Service();
+	@Autowired
+	s3Service s3Service; //  = new s3Service()
 	
 	
 //	@PostMapping("/savefile")
@@ -30,8 +31,8 @@ public class s3Controller {
     private static final String MESSAGE_1 = "Uploaded the file successfully";
     private static final String FILE_NAME = "fileName";
 
-    @Autowired
     
+  
 
     @GetMapping("/getfile")
     public ResponseEntity<Object> findByName(@RequestBody(required = false) Map<String, String> params) {

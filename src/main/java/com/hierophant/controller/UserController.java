@@ -67,8 +67,6 @@ public class UserController {
 	// Using post to accomadate create crud
 	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we set in the model
 	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP RequestBody
-		System.out.println("THE OBJECT IS " + u.toString());
-		System.out.println("it should be insert " + userService.insert(u));
 		return ResponseEntity.ok(userService.insert(u));
 	}
 

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,10 +22,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
 @Component
+@Configuration
 public class JwtToken {
-	// Might need to change this code;
-	private String secret = "9nEWPTThWQezy8TUvJDnw4cfl5SXIFAsITkXkccvMDU9pxnzcxMdM5Qdq7PNNziFgpD7VwTHiumrInxzWV68tMf7xbnGUYQucbTy";
 	private static Logger log = LoggerFactory.getLogger(JwtToken.class);
+	// Might need to change this code;
+	@Value("${secret}")
+	private String secret;
+	
 	// Generate a token with Auth0 logic
 //	public String generateJwtToken(UserPrincipal userPrincipal) {
 //		String[] claims = getClaimsFromUser(userPrincipal); // If the claim is valid, we then will generate a token for user
