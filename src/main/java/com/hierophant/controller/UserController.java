@@ -29,8 +29,7 @@ import com.hierophant.util.JwtToken;
 
 @RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
-//@CrossOrigin(origins = "*") // this exposes this controller to all ports, might need config this but for now I will commented out
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
 public class UserController {
 	// our controller needs to call its dependency which is our UserService
 	@Autowired
@@ -66,7 +65,6 @@ public class UserController {
 	}
 
 	// Using post to accomadate create crud
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we set in the model
 	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP RequestBody
 		System.out.println("THE OBJECT IS " + u.toString());

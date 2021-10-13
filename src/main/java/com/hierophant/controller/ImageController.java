@@ -1,6 +1,10 @@
 package com.hierophant.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +23,7 @@ import com.hierophant.service.ImageService;
 
 @RestController
 @RequestMapping("/images")
+@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
 public class ImageController {
 
 	@Autowired
