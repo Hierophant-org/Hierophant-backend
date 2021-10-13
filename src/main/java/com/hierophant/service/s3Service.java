@@ -31,7 +31,7 @@ public class s3Service {
 	////s3 stuff
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	 @Autowired
+	    @Autowired
 	    private AmazonS3 amazonS3;
 
 	    @Value("${s3.bucket.name}")
