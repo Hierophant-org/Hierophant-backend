@@ -64,10 +64,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
      .and()
         .authorizeRequests()
-        .antMatchers("/users/authenticate").permitAll()
-          .antMatchers("/users/register").permitAll()
-          .antMatchers("/posts/findAll").permitAll()
-          .antMatchers("/posts/findAllUsers").permitAll()
+        .antMatchers("**/users/authenticate").permitAll()
+          .antMatchers("**/users/register").permitAll()
+          .antMatchers("**/posts/findAll").permitAll()
+          .antMatchers("**/posts/findAllUsers").permitAll()
         .anyRequest().authenticated();
 	}
 	
