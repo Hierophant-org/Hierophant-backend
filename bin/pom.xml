@@ -16,7 +16,7 @@
 	<description>Social Site with Memes</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.organization>210823-enterprise</sonar.organization>
+		<sonar.organization>hierophant-org</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
@@ -85,6 +85,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- Added for JWT -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.18.2</version>
 		</dependency>
 	</dependencies>
 
