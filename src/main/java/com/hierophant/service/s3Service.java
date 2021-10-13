@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +26,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
 
 
-@RestController
-@RequestMapping("/s3")
+@Service
 public class s3Service {
 	////s3 stuff
 	Logger log = LoggerFactory.getLogger(this.getClass());

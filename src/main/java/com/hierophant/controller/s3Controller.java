@@ -9,12 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.HttpMethod;
 import com.hierophant.service.s3Service;
-
+@RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
+@RequestMapping("/s3")
 public class s3Controller {
 
 	s3Service s3Service = new s3Service();
