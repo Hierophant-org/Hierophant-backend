@@ -49,9 +49,9 @@ public class s3Controller {
         s3Service.save(multipartFile);
         return new ResponseEntity<>(MESSAGE_1, HttpStatus.OK);
     }
-    @PostMapping("/getUrl")
+    @GetMapping("/getUrl")
     public ResponseEntity<Object> getUrl(@RequestParam("file") MultipartFile multipartFile) {
-        String url = s3Service.generateUrl(multipartFile.getName(), HttpMethod.POST);
+        String url = s3Service.generateUrl(multipartFile.getName(), HttpMethod.GET);
         return new ResponseEntity<>(MESSAGE_1, HttpStatus.OK);
     }
 }
