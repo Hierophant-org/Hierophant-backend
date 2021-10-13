@@ -42,7 +42,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	            "/swagger-resources/**",
 	            "/swagger-ui.html",
 	            "/v2/api-docs",
-	            "/webjars/**"
+	            "/webjars/**",
+	            "/actuator/health"
 	         );
 	}
 	
@@ -75,6 +76,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/posts/findAllUsers").permitAll()
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
+          .antMatchers("/actuator/health").permitAll()
         .anyRequest().authenticated();
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
