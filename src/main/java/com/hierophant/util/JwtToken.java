@@ -2,15 +2,14 @@ package com.hierophant.util;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 public class JwtToken {
 	// Might need to change this code;
 	private String secret = "9nEWPTThWQezy8TUvJDnw4cfl5SXIFAsITkXkccvMDU9pxnzcxMdM5Qdq7PNNziFgpD7VwTHiumrInxzWV68tMf7xbnGUYQucbTy";
-	
+	private static Logger log = LoggerFactory.getLogger(JwtToken.class);
 	// Generate a token with Auth0 logic
 //	public String generateJwtToken(UserPrincipal userPrincipal) {
 //		String[] claims = getClaimsFromUser(userPrincipal); // If the claim is valid, we then will generate a token for user
@@ -39,6 +38,7 @@ public class JwtToken {
 //	}
 	
 	public String generateJwtToken(String username) {
+		log.info("generating a token");
 		return JWT.create()
 				.withIssuer(Security.HIEROPHANT)
 				.withAudience(Security.GET_ARRAY_ADMINISTRATION)
