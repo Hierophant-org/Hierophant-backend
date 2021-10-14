@@ -24,7 +24,7 @@ import com.hierophant.service.PostService;
 
 @RestController
 @RequestMapping("/posts")
-@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
+@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
 public class PostController {
 	@Autowired
 	PostService postService;
