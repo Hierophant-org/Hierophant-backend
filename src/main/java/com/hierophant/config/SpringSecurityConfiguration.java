@@ -74,13 +74,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/users/register").permitAll()
           .antMatchers("/posts/findAll").permitAll()
           .antMatchers("/posts/findAllUsers").permitAll()
+          .antMatchers("/comments/findAll").permitAll()
+          .antMatchers("/comments/findAllUsers").permitAll()
+          .antMatchers("/comments/findByPostId").permitAll()
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
           .antMatchers("/actuator/health").permitAll()
         .anyRequest().authenticated();
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

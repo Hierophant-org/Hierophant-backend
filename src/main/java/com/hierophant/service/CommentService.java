@@ -1,7 +1,5 @@
 package com.hierophant.service;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hierophant.model.Comment;
+import com.hierophant.model.User;
 import com.hierophant.repository.CommentDao;
 
 @Service
@@ -112,7 +111,14 @@ public class CommentService {
 		}
 		return null;		
 	}
-	
-	
+	public List<User> findUserByPost(int postId){
+		try {
+			return commentDao.findAllIncludeUser(postId);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }

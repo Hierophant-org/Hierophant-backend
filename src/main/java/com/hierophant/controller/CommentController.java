@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hierophant.model.Comment;
+import com.hierophant.model.User;
 import com.hierophant.service.CommentService;
 
 @RestController
 @RequestMapping("/comments")
-@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
+@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
 public class CommentController {
 	@Autowired
 	CommentService commentService;
@@ -33,11 +34,14 @@ public class CommentController {
 		return ResponseEntity.ok(commentService.findById(comId));
 	}
 	
-	@GetMapping("/findAll")
+	@GetMapping("/findByPostId")
 	public ResponseEntity<List<Comment>> findByPostId(@RequestParam("id") int postId) {
 		return ResponseEntity.ok(commentService.findByPostId(postId));
 	}
-
+	@GetMapping("/findUser")
+	public ResponseEntity<List<User>> findAllUsers(@RequestParam("id") int postId) {
+		return ResponseEntity.ok(commentService.findUserByPost(postId));
+	}
 //	@GetMapping("/user/{username}")
 //	public ResponseEntity<List<Comment>> findByUserName(@PathVariable("username") String userName) {
 //		// return null;

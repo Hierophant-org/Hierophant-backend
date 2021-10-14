@@ -29,7 +29,7 @@ import com.hierophant.util.JwtToken;
 
 @RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
-@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
+@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
 public class UserController {
 	// our controller needs to call its dependency which is our UserService
 	@Autowired

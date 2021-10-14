@@ -21,7 +21,7 @@ import com.hierophant.service.ImageService;
 
 @RestController
 @RequestMapping("/images")
-@CrossOrigin(origins="http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/")
+@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
 public class ImageController {
 
 	@Autowired
