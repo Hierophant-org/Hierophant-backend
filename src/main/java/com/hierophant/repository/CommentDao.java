@@ -19,4 +19,6 @@ public interface CommentDao extends JpaRepository<Comment, Integer> {
 	// finds all the comments from a specific user
 //	public List<Comment> findByUsername(String userName);
 	public List<Comment> findByUserId(int userId);
+	
+	public List<Comment> findByPostId(int postId);
 }

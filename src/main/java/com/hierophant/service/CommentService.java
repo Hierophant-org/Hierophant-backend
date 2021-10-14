@@ -99,4 +99,20 @@ public class CommentService {
 		}		
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public List<Comment> findByPostId(int postId)
+	{
+		try
+		{
+			return commentDao.findByPostId(postId);
+		}
+		catch(IllegalArgumentException e)
+		{
+			log.warn("In CommentService.findByPostId(postId) postId was invalid. Returning null.");
+		}
+		return null;		
+	}
+	
+	
+	
 }
