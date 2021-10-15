@@ -25,6 +25,6 @@ public interface CommentDao extends JpaRepository<Comment, Integer> {
 	@Query("FROM Comment c WHERE c.postId=postId")
 	public List<Comment> findByPostId(int postId);
 	
-	@Query("SELECT user FROM Comment c JOIN c.userId user WHERE c.postId=1")
-	public List<User> findAllIncludeUser(int postId);
+	@Query("SELECT user FROM Comment c JOIN c.userId user WHERE c.comId=?1")
+	public Optional<User> findUserIdByComId(int id);
 }
