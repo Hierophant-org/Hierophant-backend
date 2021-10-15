@@ -1,76 +1,94 @@
 package com.hierophant.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.HttpMethod;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
 public class s3Service {
-	////s3 stuff
-	Logger log = LoggerFactory.getLogger(this.getClass());
+
 	
-	    @Autowired
-	    private AmazonS3 amazonS3;
+	AWSCredentials credentials = new BasicAWSCredentials(
+			  "AKIAYI6HBH7Z4FE5DVWG", 
+			  "FzIWWma5tJU6TvS11ISKtuh9JC0EyMtgk5h6iutO"
+			);
+	
+	
+	AmazonS3 s3client = AmazonS3ClientBuilder
+			  .standard()
+			  .withCredentials(new AWSStaticCredentialsProvider(credentials))
+			  .withRegion(Regions.US_EAST_2)
+			  .build();
+	String bucketName = "hierophant-bucket";
+	public void createBucket()
+	{
+		//String bucketName = "baeldung-bucket";
 
-	    @Value("${s3.bucket.name}")
-	    private String s3BucketName;
-
-	    public String generateUrl(String fileName, HttpMethod httpMethod) {
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.setTime(new Date());
-	        calendar.add(Calendar.DATE, 1); // Generated URL will be valid for 24 hours
-	        return amazonS3.generatePresignedUrl(s3BucketName, fileName, calendar.getTime(), httpMethod).toString();
-	    }
-	    
-	    private File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-	        final File file = new File(multipartFile.getOriginalFilename());
-	        try (final FileOutputStream outputStream = new FileOutputStream(file)) {
-	            outputStream.write(multipartFile.getBytes());
-	        } catch (IOException e) {
-	            log.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
-	        }
-	        return file;
-	    }
-	    @Async
-	    public S3ObjectInputStream findByName(String fileName) {
-	        log.info("Downloading file with name {}", fileName);
-	        return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
-	    }
-	    @Async
-	    public void save(final MultipartFile multipartFile) {
-	        try {
-	            final File file = convertMultiPartFileToFile(multipartFile);
-	            final String fileName = LocalDateTime.now() + "_" + file.getName();
-	            log.info("Uploading file with name {}", fileName);
-	            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, fileName, file);
-	            amazonS3.putObject(putObjectRequest);
-	            Files.delete(file.toPath()); // Remove the file locally created in the project folder
-	        } catch (AmazonServiceException e) {
-	            log.error("Error {} occurred while uploading file", e.getLocalizedMessage());
-	        } catch (IOException ex) {
-	            log.error("Error {} occurred while deleting temporary file", ex.getLocalizedMessage());
-	        }
-	    }
+		if(s3client.doesBucketExist(bucketName)) {
+		    System.out.println("Bucket name is not available."
+		      + " Try again with a different Bucket name.");
+		    return;
+		}
+	
+		s3client.createBucket(bucketName);
+	}
+	
+	
+	public void listBuckets()
+	{
+	List<Bucket> buckets = s3client.listBuckets();
+			
+	for(Bucket bucket : buckets) {
+	    System.out.println(bucket.getName());
+	  }
+	}
+	
+	public void putFileInBucket(MultipartFile file)
+	{
+	s3client.putObject(
+			  bucketName, 
+			  file.getName(), 
+			  new File("/Users/user/Document/hello.txt")
+			);
+	}
+	public void listObjectsInBucket()
+	{
+	ObjectListing objectListing = s3client.listObjects(bucketName);
+	for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
+	   System.out.println(os.getKey());
+	}
+	}
+	public void getObjectFromBucket()
+	{
+	S3Object s3object = s3client.getObject(bucketName, "picture/pic.png");
+	S3ObjectInputStream inputStream = s3object.getObjectContent();
+	try {
+		FileUtils.copyInputStreamToFile(inputStream, new File("/Users/user/Desktop/hello.txt"));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
 }
+
+    

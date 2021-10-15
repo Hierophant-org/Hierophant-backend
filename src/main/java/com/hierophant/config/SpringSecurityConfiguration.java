@@ -75,6 +75,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
           .antMatchers("/s3/**").permitAll()
+          .antMatchers("/images/**").permitAll()
         .anyRequest().authenticated();
 	}
 	

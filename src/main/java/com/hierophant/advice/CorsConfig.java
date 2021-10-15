@@ -20,6 +20,7 @@ public class CorsConfig {
 	      config.setAllowedMethods(Arrays.asList("GET","POST"));
 
 	      source.registerCorsConfiguration("http://hierophantbackendpipe-env.eba-v2pxdpwf.us-east-1.elasticbeanstalk.com/hierophant/**", config);
-	      return new CorsFilter(source);
+	      
+           return new CorsFilter(source);
 	}
 }
