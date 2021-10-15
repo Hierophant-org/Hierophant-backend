@@ -111,9 +111,9 @@ public class CommentService {
 		}
 		return null;		
 	}
-	public List<User> findUserByPost(int postId){
+	public Optional<User> findUserByCommentId(int comId){
 		try {
-			return commentDao.findAllIncludeUser(postId);
+			return commentDao.findUserIdByComId(comId);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

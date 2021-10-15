@@ -39,15 +39,9 @@ public class CommentController {
 		return ResponseEntity.ok(commentService.findByPostId(postId));
 	}
 	@GetMapping("/findUser")
-	public ResponseEntity<List<User>> findAllUsers(@RequestParam("id") int postId) {
-		return ResponseEntity.ok(commentService.findUserByPost(postId));
+	public ResponseEntity<Optional<User>> findAllUsers(@RequestParam("id") int comId) {
+		return ResponseEntity.ok(commentService.findUserByCommentId(comId));
 	}
-//	@GetMapping("/user/{username}")
-//	public ResponseEntity<List<Comment>> findByUserName(@PathVariable("username") String userName) {
-//		// return null;
-//		return ResponseEntity.ok(commentService.findByUserName(userName));
-//	}
-
 	@GetMapping("/user")
 	public ResponseEntity<List<Comment>> findByUserId(@RequestParam("id") int userId) {
 		return ResponseEntity.ok(commentService.findByUserId(userId));
