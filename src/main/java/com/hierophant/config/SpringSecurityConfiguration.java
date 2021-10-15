@@ -77,6 +77,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/comments/findUser").permitAll()
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
+          //.antMatchers("/images/**").permitAll()
           .antMatchers("/actuator/health").permitAll()
         .anyRequest().authenticated();
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

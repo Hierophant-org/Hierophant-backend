@@ -48,7 +48,7 @@ public class ImageService {
 			{
 				log.warn("In CommentService.insert() image was invalid. Returning null.");
 			}
-			return null;
+			return image;
 			
 		}
 				

@@ -154,4 +154,11 @@ public class PostService {
 			return null;
 		}
 	}
+	public int getPostCount()
+	{
+		List<Post> p=postDao.findAll();
+		
+		
+		return p.size();
+	}
 }

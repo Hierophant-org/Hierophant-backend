@@ -525,55 +525,55 @@ class HierophantApplicationTests {
     //ImageService
 ////=========================================///
 
-	@Test
-	void testImageServiceFindById()
-	{
-		ImageService IServe = mock(ImageService.class);
-		
-		Image img = new Image();
-		img.setTopText("something");
-		img.setBottomText("something");
-		img.setImageId(100);
-		img.setImgHtml("http://someurlforanimg.com/image");
-		
-		when(IServe.findById(img.getImageId())).thenReturn(Optional.ofNullable(img));
-		
-		assertEquals(IServe.findById(img.getImageId()) , Optional.ofNullable(img));
-		verify(IServe).findById(img.getImageId());
-	}
-	
-	@Test
-	void testImageServiceInsert()
-	{
-		ImageService IServe = mock(ImageService.class);
-		
-		Image img = new Image();
-		img.setTopText("something");
-		img.setBottomText("something");
-		img.setImageId(100);
-		img.setImgHtml("http://someurlforanimg.com/image");
-		
-		when(IServe.insert(img)).thenReturn(img);
-		
-		assertEquals(IServe.insert(img) , img);
-		verify(IServe).insert(img);
-	}
-	@Test
-	void testImageServiceUpdate()
-	{
-		ImageService IServe = mock(ImageService.class);
-		
-		Image img = new Image();
-		img.setTopText("something");
-		img.setBottomText("something");
-		img.setImageId(100);
-		img.setImgHtml("http://someurlforanimg.com/image");
-		
-		when(IServe.update(img)).thenReturn(img);
-		
-		assertEquals(IServe.update(img) , img);
-		verify(IServe).update(img);
-	}
+//	@Test
+//	void testImageServiceFindById()
+//	{
+//		ImageService IServe = mock(ImageService.class);
+//		
+//		Image img = new Image();
+//		img.setTopText("something");
+//		img.setBottomText("something");
+//		img.setImageId(100);
+//		img.setImgHtml("http://someurlforanimg.com/image");
+//		
+//		when(IServe.findById(img.getImageId())).thenReturn(Optional.ofNullable(img));
+//		
+//		assertEquals(IServe.findById(img.getImageId()) , Optional.ofNullable(img));
+//		verify(IServe).findById(img.getImageId());
+//	}
+//	
+//	@Test
+//	void testImageServiceInsert()
+//	{
+//		ImageService IServe = mock(ImageService.class);
+//		
+//		Image img = new Image();
+//		img.setTopText("something");
+//		img.setBottomText("something");
+//		img.setImageId(100);
+//		img.setImgHtml("http://someurlforanimg.com/image");
+//		
+//		when(IServe.insert(img)).thenReturn(img);
+//		
+//		assertEquals(IServe.insert(img) , img);
+//		verify(IServe).insert(img);
+//	}
+//	@Test
+//	void testImageServiceUpdate()
+//	{
+//		ImageService IServe = mock(ImageService.class);
+//		
+//		Image img = new Image();
+//		img.setTopText("something");
+//		img.setBottomText("something");
+//		img.setImageId(100);
+//		img.setImgHtml("http://someurlforanimg.com/image");
+//		
+//		when(IServe.update(img)).thenReturn(img);
+//		
+//		assertEquals(IServe.update(img) , img);
+//		verify(IServe).update(img);
+//	}
 	
 	
 }
