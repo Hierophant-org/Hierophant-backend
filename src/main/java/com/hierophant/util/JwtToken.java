@@ -29,18 +29,6 @@ public class JwtToken {
 	@Value("${secret}")
 	private String secret;
 	
-	// Generate a token with Auth0 logic
-//	public String generateJwtToken(UserPrincipal userPrincipal) {
-//		String[] claims = getClaimsFromUser(userPrincipal); // If the claim is valid, we then will generate a token for user
-//		return JWT.create()
-//				.withIssuer(Security.HIEROPHANT)
-//				.withAudience(Security.GET_ARRAY_ADMINISTRATION)
-//				.withIssuedAt(new Date())
-//				.withSubject(userPrincipal.getUsername())
-//				.withArrayClaim(Security.AUTHORITIES, claims)
-//				.withExpiresAt(new Date(System.currentTimeMillis() + Security.EXPIRATION_TIME))
-//				.sign(Algorithm.HMAC512(secret.getBytes()));	
-//	}
 	
 	public String generateJwtToken(String username) {
 		log.info("generating a token");
@@ -52,14 +40,6 @@ public class JwtToken {
 				.withExpiresAt(new Date(System.currentTimeMillis() + Security.EXPIRATION_TIME))
 				.sign(Algorithm.HMAC512(secret.getBytes()));	
 	}
-	
-//	private String[] getClaimsFromUser(UserPrincipal userPrincipal) {
-//		List<String> authorities = new ArrayList<>();
-//		for(GrantedAuthority grantedAuthority: userPrincipal.getAuthorities()) {
-//			authorities.add(grantedAuthority.getAuthority());
-//		}
-//		return authorities.toArray(new String[0]);
-//	}
 	
 	// ================================================================================================================================================================
 	
@@ -76,26 +56,17 @@ public class JwtToken {
 	
 	@Transactional
 	public Authentication getAuthentication(String username, List<GrantedAuthority> authorities, HttpServletRequest request) {
+		//grab authentication
 		UsernamePasswordAuthenticationToken userPasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities); 
 		userPasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		return userPasswordAuthenticationToken;
 	}
 	
 	public String getSubject (String token) {
+		//get the subject
 		JWTVerifier verifier = getJWTVerifier();
 		return verifier.verify(token).getSubject();
 	}
-
-	// The stream caused an error no idea why
-//	public List<GrantedAuthority> getAuthorities(String token) {
-//		String[] claims = getClaimsFromToken(token);
-//		return Stream.of(claims).map(SimpleGrantedAuthority::new).collect(Collectors.toList()); // have to use Stream.of() instead of stream()
-//	}
-	
-//	private String[] getClaimsFromToken(String token) {
-//		JWTVerifier verifier = getJWTVerifier();
-//		return verifier.verify(token).getClaim(Security.AUTHORIZATION).asArray(String.class);
-//	}
 
 	private JWTVerifier getJWTVerifier() {
 		JWTVerifier verifier;

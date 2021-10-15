@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @ConfigurationProperties("spring.datasource")
 public class DBConfiguration {
-	
+	//DB config
 	private String driverClassName;
 	private String url;
 	private String username;

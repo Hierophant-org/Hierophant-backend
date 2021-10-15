@@ -24,7 +24,7 @@ public class PostService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Optional<Post> findById(int comId)
-	{
+	{//find comment by id
 
 		try
 		{
@@ -39,7 +39,7 @@ public class PostService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<Post> findByUserName(String userName)
-	{
+	{//find by poster name
 		try
 		{
 		//return postDao.findByUsername(userName);
@@ -56,9 +56,7 @@ public class PostService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<Post> findByUserId(int userId)
-	{
-
-		
+	{//find by user id
 		try
 		{
 			return postDao.findByUserId(userId);	
@@ -73,7 +71,7 @@ public class PostService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Optional<Post> findByTitle(String postTitle)
-	{
+	{//find by title
 
 		try
 		{
@@ -90,7 +88,7 @@ public class PostService {
 	}
 	// inserts a post to the database
 	public Post insert(Post post)
-	{
+	{//insert post
 		try
 		{
 			return postDao.save(post);	
@@ -131,6 +129,7 @@ public class PostService {
 		}		
 	}
 	public List<User> findUserByPost(){
+		//find all users that posted
 		try {
 			return postDao.findAllIncludeUser();
 		} catch (IllegalArgumentException e) {
@@ -141,6 +140,7 @@ public class PostService {
 	}
 	public List<Post> findAll() {
 		try {
+			//find all posts
 			List<Post> p=postDao.findAll();
 			List<User> u=findUserByPost();
 			for(int i =0; i<p.size(); i++) {
@@ -155,10 +155,8 @@ public class PostService {
 		}
 	}
 	public int getPostCount()
-	{
+	{//count how many post
 		List<Post> p=postDao.findAll();
-		
-		
 		return p.size();
 	}
 }

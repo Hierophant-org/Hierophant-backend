@@ -20,9 +20,9 @@ public interface PostDao extends JpaRepository<Post, Integer>{
 	public Optional<Post> findById(int comId);
 	
 	// finds all the post from a particular user
-//	public List<Post> findByUsername(String userName);
 	public List<Post> findByUserId(int userId);
 	
+	//find list of users that posted
 	@Query("SELECT user FROM Post p JOIN p.userId user")
 	public List<User> findAllIncludeUser();
 }

@@ -1,5 +1,7 @@
 package com.hierophant.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,14 +26,15 @@ import com.hierophant.util.JwtAuthorizationFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   {
-	
-	@Autowired
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	@Autowired//filter
 	private JwtAuthorizationFilter jwtFilter;
-	@Autowired
+	@Autowired//user service wired
 	private UserService userService;
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		//configure what url's are allowed
 		web.ignoring().antMatchers(
 	            "/*.html",
 	            "/favicon.ico",
@@ -49,6 +52,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	
 	@Override 
 	public void configure(HttpSecurity http) throws Exception {
+		//what to allow
 //		http.cors().disable();
 //		http.csrf().disable().authorizeRequests()
 //		.antMatchers(HttpMethod.POST, "**/users/register").permitAll()
@@ -85,20 +89,23 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO Auto-generated method stub
-//		super.configure(auth);
+		// config the auth builder
+		log.info("configring Authentication Manager");
 		auth.userDetailsService(userService);
 	}
 	
 	// Needed this for "There is no PasswordEncoder mapped for the id "null" " exception
 	@Bean
 	public PasswordEncoder passwordEncoder() {
+		//unused password encoder(future goal)
 		return NoOpPasswordEncoder.getInstance();
 	}
 	
 	@Bean(name=BeanIds.AUTHENTICATION_MANAGER)
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
+		//mangage the auth manager
+		log.info("authentication manger running");
 		return super.authenticationManagerBean();
 	}
 }

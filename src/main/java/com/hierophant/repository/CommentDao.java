@@ -22,9 +22,11 @@ public interface CommentDao extends JpaRepository<Comment, Integer> {
 //	public List<Comment> findByUsername(String userName);
 	public List<Comment> findByUserId(int userId);
 	
+	//finds comments for given post
 	@Query("FROM Comment c WHERE c.postId=postId")
 	public List<Comment> findByPostId(int postId);
 	
+	//find which user posted the comment
 	@Query("SELECT user FROM Comment c JOIN c.userId user WHERE c.comId=?1")
 	public Optional<User> findUserIdByComId(int id);
 }
