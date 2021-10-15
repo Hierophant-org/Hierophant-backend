@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,8 +36,7 @@ public class Post {
 	private String title;
 //	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
-	@JoinTable(name = "userPost", 
-			inverseJoinColumns={@JoinColumn(name="userId")})
+	@JoinColumn(name = "postUserId", referencedColumnName="userId")
 	@JsonBackReference(value="userPost")
 	private User userId;
 

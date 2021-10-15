@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,16 +29,13 @@ public class Comment {
 
 //	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
-	@JoinTable(name = "userComment",
-			inverseJoinColumns={@JoinColumn(name="userId")}
-			)
+	@JoinColumn(name = "comUserId", referencedColumnName = "userId")
 	@JsonBackReference(value="userCom")
 	private User userId;
 
 //	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Post.class)
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=Post.class)
-	@JoinTable(name = "comPost", 
-			inverseJoinColumns={@JoinColumn(name="postId")})
+	@JoinColumn(name = "comPostId", referencedColumnName = "postId")
 	@JsonBackReference(value="postCom")
 	private Post postId;
 	

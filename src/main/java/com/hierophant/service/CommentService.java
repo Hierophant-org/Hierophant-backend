@@ -1,7 +1,5 @@
 package com.hierophant.service;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hierophant.model.Comment;
+import com.hierophant.model.User;
 import com.hierophant.repository.CommentDao;
 
 @Service
@@ -97,6 +96,29 @@ public class CommentService {
 		{
 			log.warn("In CommentService.deleteById() comment was invalid. Returning false.");
 		}		
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public List<Comment> findByPostId(int postId)
+	{
+		try
+		{
+			return commentDao.findByPostId(postId);
+		}
+		catch(IllegalArgumentException e)
+		{
+			log.warn("In CommentService.findByPostId(postId) postId was invalid. Returning null.");
+		}
+		return null;		
+	}
+	public Optional<User> findUserByCommentId(int comId){
+		try {
+			return commentDao.findUserIdByComId(comId);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtAuthorizationFilter;
@@ -41,7 +42,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	            "/swagger-resources/**",
 	            "/swagger-ui.html",
 	            "/v2/api-docs",
-	            "/webjars/**"
+	            "/webjars/**",
+	            "/actuator/health"
 	         );
 	}
 	
@@ -72,13 +74,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
           .antMatchers("/users/register").permitAll()
           .antMatchers("/posts/findAll").permitAll()
           .antMatchers("/posts/findAllUsers").permitAll()
+          .antMatchers("/comments/findUser").permitAll()
           .antMatchers("/h2-console/**").permitAll()
           .antMatchers("/swagger-ui/index.html").permitAll()
-          .antMatchers("/s3/**").permitAll()
-          .antMatchers("/images/**").permitAll()
+          //.antMatchers("/images/**").permitAll()
+          .antMatchers("/actuator/health").permitAll()
         .anyRequest().authenticated();
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
