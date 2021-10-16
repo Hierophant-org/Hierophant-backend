@@ -26,7 +26,7 @@ public class ImageService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Optional<Image> findById(int imgId)
-	{
+	{//find by id
 		try
 		{
 		return imgDao.findById(imgId);	
@@ -39,7 +39,7 @@ public class ImageService {
 	}
 	// inserts a image to the database
 		public Image insert(Image image)
-		{
+		{//find by insert
 			try
 			{
 			return imgDao.save(image);
@@ -54,7 +54,7 @@ public class ImageService {
 				
 		// updates a image in the database (edit)
 		public Image update(Image image)
-		{
+		{//update image
 			try
 			{
 			return imgDao.save(image);
@@ -70,7 +70,7 @@ public class ImageService {
 				
 		// deletes a image from the database
 		public void deleteById(int id)
-		{
+		{//delete image
 			try
 			{
 				imgDao.deleteById(id);
