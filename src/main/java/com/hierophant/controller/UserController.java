@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,21 +85,25 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/home")
-	public String welcome() {
-		return "The token worked y'all";
-	}
+//	@GetMapping("/home")
+//	public String welcome() {
+//		return "The token worked y'all";
+//	}
 	
 	@PostMapping("/authenticate")
 	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception{
 		try {
-			authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-			);
-			return jwtUtil.generateJwtToken(authRequest.getUsername());
+			Optional<User> user = userService.findByUserName(authRequest.getUsername());
+			if((!user.get().getUsername().isEmpty()) && (user.get().getPassword().compareToIgnoreCase(authRequest.getPassword())== 0)) {
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+				return jwtUtil.generateJwtToken(user.get().getUsername());
+			}
+			else {
+				return null;
+			}
 		}
-		catch(Exception ex) {
-			throw new Exception("invalid username/passwrod");
+		catch(BadCredentialsException ex) {
+			throw new Exception("invalid username/password");
 		}
 				
 	}
