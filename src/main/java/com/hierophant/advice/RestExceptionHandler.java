@@ -1,5 +1,7 @@
 package com.hierophant.advice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.hierophant.errorhandling.ApiError;
 import com.hierophant.errorhandling.ApiValidationError;
 import com.hierophant.exceptions.UserNotFoundException;
-
+//Handler for rest exceptions
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-	
-
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	//build the response entity
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
 		return ResponseEntity.status(apiError.getStatus()).body(apiError);
 	}
@@ -33,7 +35,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		String error = "Malformed JSON Request";
-		
+		log.error( "Malformed JSON Request in Api");
 		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
 	}
 
@@ -48,7 +50,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		String error = "Request failed validation";
-		
+		log.error( "Request failed validation in Api Error");
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, error, ex);
 		
 		for(FieldError e : ex.getFieldErrors()) {
@@ -65,7 +67,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
 		String error = "No User Found";
-		
+		log.error(error);
 		return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, error, ex));
 	}
 }

@@ -30,9 +30,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
+	// class to represent each user in DB
 	@Id
-	@Column(name = "userId", nullable = false, unique = true, updatable = false) // non-nullable and unique =tru is																			// primary key
+	@Column(name = "userId", nullable = false, unique = true, updatable = false) // non-nullable and unique =tru is //
+																					// primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;// unique id for each user
 
@@ -44,19 +45,18 @@ public class User {
 	@NotEmpty
 	@Length(min = 4)
 	private String password;// user password, 1-30 length
-	
+
 	@Email // must contain @ and .something
 	private String email;// user email, email format
-	
-//	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
-	@OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it. 
-	@Column(nullable = true)
-	 @JsonManagedReference(value="userPost")
-	 private List<Post> posts;
 
-	 //@OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
-	 @OneToMany(mappedBy = "userId", cascade= {CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER) // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
-	 @Column(nullable = true)
-	 @JsonManagedReference(value="userCom")
-	 private List<Comment> comments;
+	@OneToMany(mappedBy = "userId", cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@Column(nullable = true)
+	@JsonManagedReference(value = "userPost")
+	private List<Post> posts;//list of posts
+
+	@OneToMany(mappedBy = "userId", cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
+
+	@Column(nullable = true)
+	@JsonManagedReference(value = "userCom")
+	private List<Comment> comments;//list of comments
 }

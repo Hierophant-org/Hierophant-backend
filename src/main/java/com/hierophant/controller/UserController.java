@@ -28,70 +28,86 @@ import com.hierophant.model.User;
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtToken;
 
-@RestController // RestController is a specific type of Controller that already assumes you're returning a @ResponseBody
+@RestController // RestController is a specific type of Controller that already assumes you're
+				// returning a @ResponseBody
 @RequestMapping("/users") // all methods and endpoints exposed at http://localhost:5000/hierophant/users
-@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
+@CrossOrigin(origins = { "http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/",
+		"http://localhost:4200/" })
 public class UserController {
+
 	// our controller needs to call its dependency which is our UserService
 	@Autowired
-	UserService userService;
-	
+	UserService userService;// user serviSce
+
 	@Autowired
-	private JwtToken jwtUtil;
-	
+	private JwtToken jwtUtil;// jwt token import
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
-	private static Logger log = LoggerFactory.getLogger(UserController.class);
+
+	private static Logger log = LoggerFactory.getLogger(UserController.class);// logger
 
 	// GET request that reads the id from the query parameter
 	// ResponseEntity allows us to send back custom HTTP status & headers within the
 	// HTTP response
-	@GetMapping("/find") // if I send a get request to http://localhost:5000/hierophant/users/5, it will capture 5 and search the User table for it
+	@GetMapping("/find") // if I send a get request to http://localhost:5000/hierophant/users/5, it will
+							// capture 5 and search the User table for it
 	public ResponseEntity<Optional<User>> findById(@RequestParam("id") int id) {
-		// call the service method, pass the capture id through, and return it as response entity with 200 OK status
+		// call the service method, pass the capture id through, and return it as
+		// response entity with 200 OK status'
+		log.info("finding user basd on Id:");
 		return ResponseEntity.ok(userService.findById(id));
 	}
 
-	// Create a method that fetches the path variable for finding a user by their username
+	// Create a method that fetches the path variable for finding a user by their
+	// username
 	@GetMapping("/findBy")
 	public ResponseEntity<Optional<User>> findByUsername(@RequestParam("username") String userName) {
+		// find user based on username
+		log.info("finding post basd on username:");
 		return ResponseEntity.ok(userService.findByUserName(userName));
 	}
-	
+
 	// Create a method that fetches all users
 	@GetMapping("/findAll")
 	public ResponseEntity<List<User>> findAll() {
+		log.info("finding all users");
+		// find all users as a list
 		return ResponseEntity.ok(userService.findAll());
 	}
 
 	// Using post to accomadate create crud
-	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we set in the model
-	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP RequestBody
+	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we
+								// set in the model
+	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP
+		log.info("inserting user:"); // RequestBody
+		// insert user
 		return ResponseEntity.ok(userService.insert(u));
 	}
 
 	// Using patch to accomadate update crud
-	@PatchMapping("/update") // The Valid annotation makes sure that User must comply with the restriction we set in the model
-	public ResponseEntity<User> update(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP RequestBody
+	@PatchMapping("/update") // The Valid annotation makes sure that User must comply with the restriction we
+								// set in the model
+	public ResponseEntity<User> update(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP
+																		// RequestBody
+		// update users
 		return ResponseEntity.ok(userService.update(u));
 	}
 
 	// Using post to accomadate create crud
-	@DeleteMapping("/delete/{id}") // The Valid annotation makes sure that User must comply with the restriction we set in the model
-	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) { // we're taking in the User object in the HTTP RequestBody
-		// Untested
+	@DeleteMapping("/delete/{id}") // The Valid annotation makes sure that User must comply with the restriction we
+									// set in the model
+	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) { // we're taking in the User object in the HTTP
+																			// // RequestBody
+		// Untested and unused
+		log.info("deleting user:");
 		userService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-//	@GetMapping("/home")
-//	public String welcome() {
-//		return "The token worked y'all";
-//	}
-	
+
 	@PostMapping("/authenticate")
-	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception{
+	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+		// generate token
 		try {
 			Optional<User> user = userService.findByUserName(authRequest.getUsername());
 			if((!user.get().getUsername().isEmpty()) && (user.get().getPassword().compareToIgnoreCase(authRequest.getPassword())== 0)) {
@@ -105,6 +121,5 @@ public class UserController {
 		catch(BadCredentialsException ex) {
 			throw new Exception("invalid username/password");
 		}
-				
 	}
 }

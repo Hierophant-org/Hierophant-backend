@@ -28,8 +28,7 @@ public class UserService implements UserDetailsService {
 	
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Optional<User> findById(int userId)
-	{
+	public Optional<User> findById(int userId){//find by id
 		try
 		{
 			return userDao.findById(userId);	
@@ -44,7 +43,7 @@ public class UserService implements UserDetailsService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Optional<User> findByUserName(String userName)
-	{
+	{//find based on username
 		try
 		{
 			return userDao.findByUsername(userName);	
@@ -99,7 +98,7 @@ public class UserService implements UserDetailsService {
 		}
 		
 		public List<User> findAll() {
-			try {
+			try {//find all users
 				return userDao.findAll();
 			}
 			catch(IllegalArgumentException e)
@@ -111,13 +110,11 @@ public class UserService implements UserDetailsService {
 
 		@Override
 		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+			//find based on username
 			Optional<User> u = userDao.findByUsername(username);
-			
 			u.ifPresent(val -> {
 				userObj = val;
 			});
 			return new org.springframework.security.core.userdetails.User(userObj.getUsername(), userObj.getPassword(), new ArrayList<>());  
-			
 		}
-	
 }

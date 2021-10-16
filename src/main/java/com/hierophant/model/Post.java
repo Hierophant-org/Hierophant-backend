@@ -33,21 +33,21 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int postId;// unique id for each post
 
-	private String title;
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
+	private String title;//title given to post
+	
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
 	@JoinColumn(name = "postUserId", referencedColumnName="userId")
 	@JsonBackReference(value="userPost")
-	private User userId;
+	private User userId;//who posted it
 
 	@OneToOne(cascade = CascadeType.ALL, targetEntity=Image.class)
     @JoinColumn(name = "postImageId", referencedColumnName = "imageId")
-	private Image image;
+	private Image image;//what image they gave
 
 	 @OneToMany(mappedBy = "postId") // inverse side: it has a mappedBy attribute, and can't decide how the association is mapped, since the other side already decided it.
 	 @Column(nullable = true)
 	 @JsonManagedReference(value="postCom")
-	 private List<Comment> comments;
+	 private List<Comment> comments;//list of comments
 	
-	private int upvotes;
+	private int upvotes;//how funny the meme is - the only important metric to users
 }

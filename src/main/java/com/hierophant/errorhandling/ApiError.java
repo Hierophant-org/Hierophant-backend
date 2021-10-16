@@ -28,16 +28,16 @@ public class ApiError {
 	 */
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime timestamp;
+	private LocalDateTime timestamp;//timestamp
 	
-	private int status;
+	private int status;//status
 	
-	private String error; // represetns our HTTP error (in words)
+	private String error; // Represents our HTTP error (in words)
 
 	private String message;
 	private String debugMessage;
 	List<ApiSubError> subErrors = new ArrayList<>();
-	
+	//all the ways to create a new APi Exception
 	protected ApiError() {
 		super();
 		timestamp = LocalDateTime.now();

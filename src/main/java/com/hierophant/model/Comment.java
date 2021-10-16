@@ -22,24 +22,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
+	//model of comments table
 	@Id
 	@Column(name = "comId", nullable = false, unique = true, updatable = false) // non-nullable and unique =tru is
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int comId;// unique id for each comment
 
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity=User.class)
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
 	@JoinColumn(name = "comUserId", referencedColumnName = "userId")
 	@JsonBackReference(value="userCom")
-	private User userId;
+	private User userId;//who commented
 
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Post.class)
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity=Post.class)
 	@JoinColumn(name = "comPostId", referencedColumnName = "postId")
 	@JsonBackReference(value="postCom")
-	private Post postId;
+	private Post postId;//which post they commented on
 	
-	private String commText;
+	private String commText;//what horrible they commented
 
-	private int upvotes;
+	private int upvotes;//how much other people likes their comment
 }
