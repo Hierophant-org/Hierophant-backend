@@ -55,7 +55,7 @@ public class UserController {
 	public ResponseEntity<Optional<User>> findById(@RequestParam("id") int id) {
 		// call the service method, pass the capture id through, and return it as
 		// response entity with 200 OK status'
-		log.info("finding user basd on Id:" + id);
+		log.info("finding user basd on Id:");
 		return ResponseEntity.ok(userService.findById(id));
 	}
 
@@ -64,7 +64,7 @@ public class UserController {
 	@GetMapping("/findBy")
 	public ResponseEntity<Optional<User>> findByUsername(@RequestParam("username") String userName) {
 		// find user based on username
-		log.info("finding post basd on username:" + userName);
+		log.info("finding post basd on username:");
 		return ResponseEntity.ok(userService.findByUserName(userName));
 	}
 
@@ -80,7 +80,7 @@ public class UserController {
 	@PostMapping("/register") // The Valid annotation makes sure that User must comply with the restriction we
 								// set in the model
 	public ResponseEntity<User> insert(@Valid @RequestBody User u) { // we're taking in the User object in the HTTP
-		log.info("inserting user:" + u);												// RequestBody
+		log.info("inserting user:"); // RequestBody
 		// insert user
 		return ResponseEntity.ok(userService.insert(u));
 	}
@@ -97,9 +97,10 @@ public class UserController {
 	// Using post to accomadate create crud
 	@DeleteMapping("/delete/{id}") // The Valid annotation makes sure that User must comply with the restriction we
 									// set in the model
-	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) { // we're taking in the User object in the HTTP													// RequestBody
+	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) { // we're taking in the User object in the HTTP
+																			// // RequestBody
 		// Untested and unused
-		log.info("deleting user:" + id);
+		log.info("deleting user:");
 		userService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}

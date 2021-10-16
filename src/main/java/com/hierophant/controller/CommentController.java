@@ -35,39 +35,39 @@ public class CommentController {
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Comment>> findById(@RequestParam("id") int comId) {
 		//find based on id
-		log.info("finding comment Id:"+comId);
+		log.info("finding comment Id:");
 		return ResponseEntity.ok(commentService.findById(comId));
 	}
 	
 	@GetMapping("/findByPostId")
 	public ResponseEntity<List<Comment>> findByPostId(@RequestParam("id") int postId) {
 		//find comment based on postId
-		log.info("finding comment where post is id:"+postId);
+		log.info("finding comment where post is id:");
 		return ResponseEntity.ok(commentService.findByPostId(postId));
 	}
 	@GetMapping("/findUser")
 	public ResponseEntity<Optional<User>> findAllUsers(@RequestParam("id") int comId) {
 		//find user based on comment ID
-		log.info("finding users where comment has id:"+comId);
+		log.info("finding users where comment has id:");
 		return ResponseEntity.ok(commentService.findUserByCommentId(comId));
 	}
 	@GetMapping("/user")
 	public ResponseEntity<List<Comment>> findByUserId(@RequestParam("id") int userId) {
-		log.info("finding comments where users has id:"+userId);
+		log.info("finding comments where users has id:");
 		//find comments posted by a current user
 		return ResponseEntity.ok(commentService.findByUserId(userId));
 	}
 
 	@PostMapping("/insert")
 	public ResponseEntity<Comment> insert(@Valid @RequestBody Comment c) {
-		log.info("Inserting Comment"+c);
+		log.info("Inserting Comment");
 		//insert comment into DB
 		return ResponseEntity.ok(commentService.insert(c));
 	}
 
 	@PatchMapping("/update")
 	public ResponseEntity<Comment> update(@Valid @RequestBody Comment c) {
-		log.info("Updating Comment "+c);
+		log.info("Updating Comment ");
 		//update comment in DB
 		return ResponseEntity.ok(commentService.update(c));
 	}
@@ -75,7 +75,7 @@ public class CommentController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) {
 		//delete comment from DB
-		log.info("Deleting Comment: "+id);
+		log.info("Deleting Comment: ");
 		// Unused
 		commentService.deleteById(id);
 		return ResponseEntity.noContent().build();

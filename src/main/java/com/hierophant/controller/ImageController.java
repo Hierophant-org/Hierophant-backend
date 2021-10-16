@@ -37,19 +37,19 @@ public class ImageController {
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Image>> findById(@RequestParam("id") int id) {
 		//find based on Id
-		log.info("finding image:"+id);
+		log.info("finding image:");
 		return ResponseEntity.ok(imageService.findById(id));
 	}
 
 	@PostMapping("/insert")
 	public ResponseEntity<Image> insert(@Valid @RequestBody Image i) {
-		log.info("Inserting"+i);
+		log.info("Inserting");
 		return ResponseEntity.ok(imageService.insert(i));
 	}
 
 	@PatchMapping("/update")
 	public ResponseEntity<Image> update(@Valid @RequestBody Image i) {
-		log.info("Updating"+i);
+		log.info("Updating");
 		//update post in DB
 		return ResponseEntity.ok(imageService.update(i));
 	}
@@ -58,7 +58,7 @@ public class ImageController {
 	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) {
 		//delete by Id
 		// Untested
-		log.info("deleting"+id);
+		log.info("deleting");
 		imageService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
@@ -68,7 +68,6 @@ public class ImageController {
 	{
 		//upload a image
 		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , file.getContentType() , file.getBytes()); 
-		
 		final Image savedImage = imageService.insert(img);
 		System.out.println("Image Saved!");
 		return savedImage;

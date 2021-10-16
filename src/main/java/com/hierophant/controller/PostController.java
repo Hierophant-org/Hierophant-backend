@@ -37,13 +37,13 @@ public class PostController {
 	public ResponseEntity<Optional<Post>> findByTitle(@RequestParam("title") String postTitle) {
 		// find based on title
 		// unused
-		log.info("finding post:" + postTitle);
+		log.info("finding post:");
 		return ResponseEntity.ok(postService.findByTitle(postTitle));
 	}
 
 	@GetMapping("/findBy")
 	public ResponseEntity<Optional<Post>> findById(@RequestParam("id") int postId) {
-		log.info("finding post basd on Id:" + postId);
+		log.info("finding post basd on Id:");
 		// find by comment id
 		return ResponseEntity.ok(postService.findById(postId));
 	}
@@ -65,21 +65,21 @@ public class PostController {
 	@GetMapping("/user")
 	public ResponseEntity<List<Post>> findByUserId(@RequestParam("id") int userId) {
 		// find by poster's username
-		log.info("finding post by userID:" + userId);
+		log.info("finding post by userID:");
 		return ResponseEntity.ok(postService.findByUserId(userId));
 	}
 
 	@PostMapping("/insert")
 	public ResponseEntity<Post> insert(@Valid @RequestBody Post p) {
 		// insert post
-		log.info("inserting post:" + p);
+		log.info("inserting post:");
 		return ResponseEntity.ok(postService.insert(p));
 	}
 
 	@PatchMapping("/update")
 	public ResponseEntity<Post> update(@Valid @RequestBody Post p) {
 		// update post
-		log.info("updating post:" + p);
+		log.info("updating post:");
 		return ResponseEntity.ok(postService.update(p));
 	}
 
@@ -87,7 +87,7 @@ public class PostController {
 	public ResponseEntity<Void> deleteById(@PathVariable("id") int postId) {
 		// delete post
 		// Untested and unused
-		log.info("deleting post:" + postId);
+		log.info("deleting post:");
 		postService.deleteById(postId);
 		return ResponseEntity.noContent().build();
 	}

@@ -24,7 +24,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Optional<Comment> findById(int comId) {
-		//find comment based on id
+		// find comment based on id
 		try {
 			return commentDao.findById(comId);
 		} catch (IllegalArgumentException e) {
@@ -36,7 +36,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<Comment> findByUserId(int userId) {
-		//find comment based on userId
+		// find comment based on userId
 		try {
 			return commentDao.findByUserId(userId);
 		} catch (IllegalArgumentException e) {
@@ -47,7 +47,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Comment insert(Comment comment) {
-		//insert comment
+		// insert comment
 		try {
 			return commentDao.save(comment);
 		} catch (IllegalArgumentException e) {
@@ -59,7 +59,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Comment update(Comment comment) {
-		//update comment, unused
+		// update comment, unused
 		try {
 			return commentDao.save(comment);
 		} catch (IllegalArgumentException e) {
@@ -71,7 +71,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void deleteById(int id) {
-		//delete comment
+		// delete comment
 		try {
 			commentDao.deleteById(id);
 		} catch (IllegalArgumentException e) {
@@ -81,7 +81,7 @@ public class CommentService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<Comment> findByPostId(int postId) {
-		//find comment list by Post
+		// find comment list by Post
 		try {
 			return commentDao.findByPostId(postId);
 		} catch (IllegalArgumentException e) {
@@ -91,7 +91,7 @@ public class CommentService {
 	}
 
 	public Optional<User> findUserByCommentId(int comId) {
-		//find user that posted comment
+		// find user that posted comment
 		try {
 			return commentDao.findUserIdByComId(comId);
 		} catch (IllegalArgumentException e) {
@@ -101,5 +101,5 @@ public class CommentService {
 			return null;
 		}
 	}
-
 }
+
