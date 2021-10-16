@@ -128,10 +128,10 @@ public class PostService {
 			log.warn("In PostService.deleteById() id was invalid. Returning false.");
 		}		
 	}
-	public List<User> findUserByPost(){
+	public User findUserByPost(Post post){
 		//find all users that posted
 		try {
-			return postDao.findAllIncludeUser();
+			return postDao.findPoster(post.getPostId());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,10 +142,8 @@ public class PostService {
 		try {
 			//find all posts
 			List<Post> p=postDao.findAll();
-			List<User> u=findUserByPost();
-			for(int i =0; i<p.size(); i++) {
-				p.get(i).setUserId(u.get(i));
-				System.out.println(p.get(i).getUserId().getUserId());
+			for(Post pos : p) {
+				pos.setUserId(postDao.findPoster(pos.getPostId()));
 			}
 			return p;
 		} catch(IllegalArgumentException e)

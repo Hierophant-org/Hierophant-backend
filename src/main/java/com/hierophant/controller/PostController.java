@@ -56,10 +56,11 @@ public class PostController {
 	}
 
 	@GetMapping("/findAllUsers")
-	public ResponseEntity<List<User>> findAllUsers() {
+	public ResponseEntity<User> findAllUsers(@RequestParam("id") Post post) {
 		log.info("finding post users");
 		// find list of users
-		return ResponseEntity.ok(postService.findUserByPost());
+		User u =postService.findUserByPost(post);
+		return ResponseEntity.ok(u);
 	}
 
 	@GetMapping("/user")
