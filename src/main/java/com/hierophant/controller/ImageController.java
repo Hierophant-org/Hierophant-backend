@@ -38,7 +38,7 @@ public class ImageController {
 	PostService ps;
 	
 	@GetMapping("/find")
-	public ResponseEntity<Optional<Image>> findById(@RequestParam("id") int id) {
+	public ResponseEntity<Optional<Image>> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(imageService.findById(id));
 	}
 
@@ -60,25 +60,23 @@ public class ImageController {
 	}
 	  
 	@PostMapping("/upLoad")
-	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException
-	{
+	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException{
 		try
 		{
-		
-		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , file.getContentType() , file.getBytes()); 
-		
+		Image img = new Image( 
+				ps.getPostCount() +1 , 
+				file.getOriginalFilename() , 
+				file.getContentType() , 
+				file.getBytes()); 
 		final Image savedImage = imageService.insert(img);
 		log.info("UpLoad Success, "+savedImage.getName()+" saved to db");
 		return savedImage;
 		}
 		catch(IOException e)
-		{
-			
+		{	
 		log.warn("Upload Failed! ");
 		}
 		return null;
-		
-		
 	}
 //	@GetMapping("/getMemes")
 //	public HttpResponse<String> getMemes()throws IOException, InterruptedException
