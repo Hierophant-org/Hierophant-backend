@@ -1,9 +1,5 @@
 package com.hierophant.controller;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 //import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -25,12 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.hierophant.model.Image;
 import com.hierophant.service.ImageService;
 import com.hierophant.service.PostService;
-
-import jdk.internal.org.jline.utils.Log;
 
 
 @RestController

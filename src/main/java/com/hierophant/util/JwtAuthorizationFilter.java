@@ -27,15 +27,16 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 	private static Logger log = LoggerFactory.getLogger(HierophantApplication.class);
 
 	@Autowired
-	private JwtToken jwtToken;
+	private JwtToken jwtToken;//token
 	
 	@Autowired
-	private UserService userService;
+	private UserService userService;//user service
 	
 	private String token = "";
 	private String username = "";
 
 	public JwtAuthorizationFilter(JwtToken jwtToken) {
+		//filter from backend to frountend
 		super();
 		this.jwtToken = jwtToken;
 	}
@@ -45,10 +46,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 		// if the request is OPTIONS we do nothing
 		if(request.getMethod().equalsIgnoreCase("OPTIONS")) {
+			//if options
 			response.setStatus(200);
 		}
-		 //GET, POST, DELTE, etc
+		 //GET, POST, DELETE, etc
 		else {
+			//if delete
 			String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 			if(authorizationHeader == null || !authorizationHeader.startsWith(Security.TOKEN_PREFIX)) {
 				log.warn("Hello no token nor token without bearer");
@@ -62,6 +65,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 					username = jwtToken.getSubject(token);
 				}
 				if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+					//if it needs checking
 					log.info("checking");
 					Optional<User> userDetails = userService.findByUserName(username);
 					log.info("details " + userDetails.get().getUsername());

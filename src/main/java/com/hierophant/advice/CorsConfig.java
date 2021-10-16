@@ -15,13 +15,16 @@ public class CorsConfig {
 	      config.setAllowCredentials(true);
 	      config.addAllowedOrigin("*");
 	      config.addAllowedHeader("*");
+	      //allow any header or origins
 	      config.setAllowedHeaders(Arrays.asList("*"));
 	      config.setAllowedOrigins(Arrays.asList("*"));
+	      //allow get and post methods
 	      config.setAllowedMethods(Arrays.asList("GET","POST"));
 
-	      //source.registerCorsConfiguration("http://hierophantbackendpipe-env.eba-v2pxdpwf.us-east-1.elasticbeanstalk.com/hierophant/**", config);
-	      source.registerCorsConfiguration("http://localhost:5000/**", config);
-	      
-           return new CorsFilter(source);
+	      //allow at
+	      //source.registerCorsConfiguration("http://localhost:5000/hierophant/**", config);
+	      source.registerCorsConfiguration("http://hierophantbackendpipe-env.eba-v2pxdpwf.us-east-1.elasticbeanstalk.com/hierophant/**", config);
+	      return new CorsFilter(source);
+
 	}
 }

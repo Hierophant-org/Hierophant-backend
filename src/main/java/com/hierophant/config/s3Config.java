@@ -13,13 +13,13 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 public class s3Config {
 
     @Value("${access.key.id}")
-    private String accessKeyId;
+    private String accessKeyId;//key to access s3
 
     @Value("${access.key.secret}")
-    private String accessKeySecret;
+    private String accessKeySecret;//secret key
 
     @Value("${s3.region.name}")
-    private String s3RegionName;
+    private String s3RegionName;// s3 region
 
     @Bean
     public AmazonS3 getAmazonS3Client() {

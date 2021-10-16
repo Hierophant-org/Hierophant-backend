@@ -9,8 +9,4 @@ public class HierophantApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HierophantApplication.class, args);
 	}
-
-	/**
-	 * Adding comments
-	 */
 }
