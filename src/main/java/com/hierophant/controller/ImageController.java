@@ -93,7 +93,9 @@ public class ImageController {
 	
 	
 	
-	
+	//this was a method for downloading the memes from imgflip to the server and saving them in a file called memes. 
+	//it was going to be a workaround for the cors canvas tainting issue but the problem was solved in another way.
+	//I just left it here in case it may be needed for some reason in the future.
 	/***********************************
 	public HttpResponse<String> downloadMemes()throws IOException, InterruptedException
 	{        
