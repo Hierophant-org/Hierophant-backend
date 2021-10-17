@@ -23,12 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hierophant.model.Image;
 import com.hierophant.service.ImageService;
 import com.hierophant.service.PostService;
+
 @RestController
 @RequestMapping("/images")
 @CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
-
 public class ImageController {
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	public ImageService imageService;
     @Autowired

@@ -1,9 +1,5 @@
 package com.hierophant.service;
 
-
-
-
-
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -18,71 +14,53 @@ import com.hierophant.repository.ImageDao;
 
 @Service
 public class ImageService {
+
 	@Autowired
 	private ImageDao imgDao;
-	
+
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Optional<Image> findById(int imgId)
-	{//find by id
-		try
-		{
-		return imgDao.findById(imgId);	
-		}
-		catch(IllegalArgumentException e)
-		{
+	public Optional<Image> findById(int imgId) {
+		try {
+			return imgDao.findById(imgId);
+		} catch (IllegalArgumentException e) {
 			log.warn("In ImageService.findById() imgId was invalid. Returning empty Optional.");
 		}
 		return Optional.empty();
 	}
-	// inserts a image to the database
-		public Image insert(Image image)
-		{//find by insert
-			try
-			{
+
+	public Image insert(Image image) {
+		try {
 			return imgDao.save(image);
-			}
-			catch(IllegalArgumentException e)
-			{
-				log.warn("In CommentService.insert() image was invalid. Returning null.");
-			}
-			return image;
-			
+		} catch (IllegalArgumentException e) {
+			log.warn("In CommentService.insert() image was invalid. Returning null.");
 		}
-				
-		// updates a image in the database (edit)
-		public Image update(Image image)
-		{//update image
-			try
-			{
+		return image;
+
+	}
+
+	// updates a image in the database (edit)
+	public Image update(Image image) {// update image
+		try {
 			return imgDao.save(image);
-			
-			}
-			catch(IllegalArgumentException e)
-			{
-				log.warn("In CommentService.update() image was invalid. Returning false.");
-			}
-			return null;
-			
+
+		} catch (IllegalArgumentException e) {
+			log.warn("In CommentService.update() image was invalid. Returning false.");
 		}
-				
-		// deletes a image from the database
-		public void deleteById(int id)
-		{//delete image
-			try
-			{
-				imgDao.deleteById(id);
-			
-			}
-			catch(IllegalArgumentException e)
-			{
-				log.warn("In CommentService.deleteById() image was invalid. Returning false.");
-			}
-			
+		return null;
+
+	}
+
+	// deletes a image from the database
+	public void deleteById(int id) {// delete image
+		try {
+			imgDao.deleteById(id);
+
+		} catch (IllegalArgumentException e) {
+			log.warn("In CommentService.deleteById() image was invalid. Returning false.");
 		}
-	
-	
-		
+
+	}
+
 }
