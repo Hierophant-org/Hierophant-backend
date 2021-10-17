@@ -67,7 +67,7 @@ public class ImageController {
 	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException
 	{
 		//upload a image
-		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , file.getContentType() , null, null, null, file.getBytes()); 
+		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , null, null, file.getContentType(),   file.getBytes()); 
 		final Image savedImage = imageService.insert(img);
 		System.out.println("Image Saved!");
 		return savedImage;
