@@ -31,7 +31,7 @@ import com.hierophant.service.PostService;
 public class PostController {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	PostService postService;
+	public PostService postService;
 
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Post>> findByTitle(@RequestParam("title") String postTitle) {
@@ -56,7 +56,7 @@ public class PostController {
 	}
 
 	@GetMapping("/findAllUsers")
-	public ResponseEntity<User> findAllUsers(@RequestParam("id") Post post) {
+	public ResponseEntity<User> findPoster(@RequestParam("id") Post post) {
 		log.info("finding post users");
 		// find list of users
 		User u =postService.findUserByPost(post);

@@ -30,7 +30,7 @@ import com.hierophant.service.CommentService;
 public class CommentController {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	CommentService commentService;
+	public CommentService commentService;
 
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Comment>> findById(@RequestParam("id") int comId) {

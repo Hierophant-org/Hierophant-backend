@@ -30,7 +30,7 @@ import com.hierophant.service.PostService;
 public class ImageController {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	ImageService imageService;
+	public ImageService imageService;
     @Autowired
 	PostService ps;
 	
