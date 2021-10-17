@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import com.hierophant.controller.UserController;
-import com.hierophant.model.AuthRequest;
 import com.hierophant.model.Comment;
 import com.hierophant.model.Image;
 import com.hierophant.model.Post;
