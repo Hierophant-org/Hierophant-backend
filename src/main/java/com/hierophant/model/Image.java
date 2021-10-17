@@ -22,18 +22,11 @@ public class Image {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int imageId;//unique id for each image
 	
-	private String imgHtml;//html link to template
-	
 	private String name;//image given name
+	
     private String type;//image type
     
     private byte[] pic;//picture in bytes
     
-	public Image(int id , String name , String type , byte[] pic)
-	{
-		this.imageId = id;//id of image
-		this.name = name;
-		this.type = type;
-		this.pic = pic;
-	}
+	
 }

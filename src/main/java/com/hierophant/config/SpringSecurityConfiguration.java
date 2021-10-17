@@ -48,6 +48,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	            "/webjars/**",
 	            "/actuator/health"
 	         );
+		
 	}
 	
 	@Override 

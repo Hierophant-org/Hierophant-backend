@@ -157,6 +157,8 @@ public class PostService {
 	public int getPostCount()
 	{//count how many post
 		List<Post> p=postDao.findAll();
-		return p.size();
+		Post post = p.get(p.size()-1 );
+		System.out.println(post.getPostId());
+		return post.getPostId();
 	}
 }

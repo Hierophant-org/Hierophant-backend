@@ -1,5 +1,15 @@
 package com.hierophant.controller;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 //import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -60,17 +70,18 @@ public class ImageController {
 	}
 	  
 	@PostMapping("/upLoad")
-	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException{
+	public ResponseEntity<Image> upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException{
 		try
 		{
+			int id = ps.getPostCount()+1;
 		Image img = new Image( 
-				ps.getPostCount() +1 , 
+				id , 
 				file.getOriginalFilename() , 
 				file.getContentType() , 
 				file.getBytes()); 
 		final Image savedImage = imageService.insert(img);
 		log.info("UpLoad Success, "+savedImage.getName()+" saved to db");
-		return savedImage;
+		return ResponseEntity.ok(savedImage);
 		}
 		catch(IOException e)
 		{	
@@ -78,20 +89,70 @@ public class ImageController {
 		}
 		return null;
 	}
-//	@GetMapping("/getMemes")
-//	public HttpResponse<String> getMemes()throws IOException, InterruptedException
-//	{
-//		 HttpClient client = HttpClient.newHttpClient();
-//	        HttpRequest request = HttpRequest.newBuilder()
-//	        		.uri(URI.create("http://alpha-meme-maker.herokuapp.com/:page"))
-//	                .build();
-//
-//	        HttpResponse<String> response = client.send(request, 
-//	        		                HttpResponse.BodyHandlers.ofString());
-//
-//	        System.out.println(response);
-//		
-//		return response;
-//		
-//	}
+	
+	
+	
+	
+	
+	/***********************************
+	public HttpResponse<String> downloadMemes()throws IOException, InterruptedException
+	{        
+			URL obj = new URL("https://api.imgflip.com/get_memes");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
+			int responseCode = con.getResponseCode();
+			System.out.println("GET Response Code :: " + responseCode);
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+                 String[] subs = response.toString().split(",");
+                
+                 int memecounter = 0;
+                 for(int i = 0 ; i < subs.length; i++)
+                 {
+                	 
+				   if(subs[i].contains("url"))
+				   {
+					String[] details = subs[i].split(":");
+					String[] file = details[2].split("/");
+					String filename = file[file.length -1].replace("\"", "");
+					System.out.println(filename);
+					String[] ext = filename.split("\\.");
+					System.out.println();
+					String url = "https://i.imgflip.com/"+filename;
+					downloadImage(url , String.valueOf(memecounter+"."+ext[1]));
+					memecounter++;
+				   }
+                 }
+				 
+			} else { 
+				System.out.println("GET request not worked");
+			}
+			return null;
+	}
+	
+	String fileLocation = new File("src\\main\\resources\\memes\\").getAbsolutePath();
+
+	public void downloadImage(String url , String name)
+	{
+		log.info("downloading meme image : "+url+" : "+name );
+			try(InputStream in = new URL(url).openStream()){
+			    Files.copy(in, Paths.get(fileLocation+"\\"+name) , StandardCopyOption.REPLACE_EXISTING);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+	   
+		} 
+		  
+	***************/
+
 }

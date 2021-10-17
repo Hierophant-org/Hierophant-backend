@@ -64,7 +64,7 @@ public class UserController {
 	@GetMapping("/findBy")
 	public ResponseEntity<Optional<User>> findByUsername(@RequestParam("username") String userName) {
 		// find user based on username
-		log.info("finding post basd on username:");
+		log.info("finding user basd on username:");
 		return ResponseEntity.ok(userService.findByUserName(userName));
 	}
 
