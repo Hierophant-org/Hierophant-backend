@@ -102,10 +102,6 @@ public class UserControllerTests {
 		assertEquals(ResponseEntity.noContent().build(), userCon.deleteById(u1.getUserId()));
 		verify(mockUserServ).deleteById(u1.getUserId());
 	}
-	@Test
-	void testWelcome() {
-		assertEquals("The token worked y'all", userCon.welcome());
-	}
 //	@Test
 //	void testGenerateToken() throws Exception {
 //		AuthRequest authreqMock = mock(AuthRequest.class);

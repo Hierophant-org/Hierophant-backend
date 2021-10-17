@@ -34,7 +34,7 @@ public class ImageController {
 	@Autowired
 	public ImageService imageService;
     @Autowired
-	PostService ps;
+	public PostService ps;
 	
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Image>> findById(@RequestParam("id") int id) {

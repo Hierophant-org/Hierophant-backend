@@ -20,10 +20,12 @@ import com.hierophant.model.Image;
 import com.hierophant.model.Post;
 import com.hierophant.model.User;
 import com.hierophant.service.ImageService;
+import com.hierophant.service.PostService;
 
 public class ImageControllerTests {
 	static ImageController imageCon = new ImageController();
 	static ImageService mockComServ = mock(ImageService.class);
+	static PostService mockPostServ = mock(PostService.class);
 	static User u1;
 	static Image i1;
 	static Post p1;
@@ -79,4 +81,10 @@ public class ImageControllerTests {
 		assertEquals(ResponseEntity.noContent().build(), imageCon.deleteById(i1.getImageId()));
 		verify(mockComServ).deleteById(i1.getImageId());
 	}
+//	@Test
+//	void testUploadImage() {
+//		when(mockPostServ.getPostCount()).thenReturn(10);
+//		assertEquals(ResponseEntity.noContent().build(), imageCon.deleteById(i1.getImageId()));
+//		verify(mockComServ).deleteById(i1.getImageId());
+//	}
 }
