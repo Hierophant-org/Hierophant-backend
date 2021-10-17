@@ -9,7 +9,6 @@ import com.hierophant.model.Image;
 
 @Repository
 public interface ImageDao extends JpaRepository<Image, Integer>{
-	
 	// finds an image based on its id
 	public Optional<Image> findById(int id);
 }

@@ -1,6 +1,5 @@
 package com.hierophant.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,13 +29,12 @@ public class Image {
     private String bottomText;
     private byte[] pic;//picture in bytes
     
-	public Image(int id , String name , String topText, String bottomText, String type , byte[] pic)
-	{
+	public Image(int id , String name , String topText, String bottomText, String type , byte[] pic){
 		this.imageId = id;//id of image
 		this.name = name;
 		this.type = type;
 		this.pic = pic;
 		this.topText=topText;
 		this.bottomText=bottomText;
-		}
+	}
 }

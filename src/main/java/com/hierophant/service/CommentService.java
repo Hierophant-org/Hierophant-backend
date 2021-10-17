@@ -97,7 +97,6 @@ public class CommentService {
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			log.error("In CommentService.findUserIdByComId(comId) comId was invalid. Returning null.");
-			e.printStackTrace();
 			return null;
 		}
 	}

@@ -20,16 +20,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.hierophant.service.UserService;
 import com.hierophant.util.JwtAuthorizationFilter;
 
-//@Configuration
-//@EnableWebSecurity
-//implements ApplicationContextAware
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   {
+public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	@Autowired//filter
+	
+	@Autowired
 	private JwtAuthorizationFilter jwtFilter;
-	@Autowired//user service wired
+	
+	@Autowired
 	private UserService userService;
 	
 	@Override
@@ -52,44 +52,23 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter   
 	
 	@Override 
 	public void configure(HttpSecurity http) throws Exception {
-		//what to allow
-//		http.cors().disable();
-//		http.csrf().disable().authorizeRequests()
-//		.antMatchers(HttpMethod.POST, "**/users/register").permitAll()
-//		.antMatchers(HttpMethod.POST, "/users/authenticate").permitAll()
-//		.antMatchers(HttpMethod.POST, "http://localhost:4200/users/register").permitAll()
-//		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//		.anyRequest().authenticated()
-//		.and().exceptionHandling().and()
-//		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-		http
-        .cors()
-      .and()
-        .csrf()
-        .disable()
-        .exceptionHandling()
-         .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-     .and()
-        .authorizeRequests()
+		http.cors().and().csrf().disable().exceptionHandling().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().authorizeRequests()
         .antMatchers("/users/authenticate").permitAll()
-          .antMatchers("/users/register").permitAll()
-          .antMatchers("/posts/findAll").permitAll()
-          .antMatchers("/posts/findAllUsers").permitAll()
-          .antMatchers("/comments/findUser").permitAll()
-          .antMatchers("/h2-console/**").permitAll()
-          .antMatchers("/swagger-ui/index.html").permitAll()
+        .antMatchers("/users/register").permitAll()
+        .antMatchers("/posts/findAll").permitAll()
+        .antMatchers("/posts/findAllUsers").permitAll()
+        .antMatchers("/comments/findUser").permitAll()
+        .antMatchers("/h2-console/**").permitAll()
+        .antMatchers("/swagger-ui/index.html").permitAll()
           //.antMatchers("/images/**").permitAll()
-          .antMatchers("/actuator/health").permitAll()
+        .antMatchers("/actuator/health").permitAll()
         .anyRequest().authenticated();
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// config the auth builder
 		log.info("configring Authentication Manager");
 		auth.userDetailsService(userService);
 	}

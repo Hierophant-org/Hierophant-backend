@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
+	
 	@Id
 	@Column(name = "postId", nullable = false, unique = true, updatable = false) // non-nullable and unique =tru is
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -28,7 +28,9 @@ import com.hierophant.service.CommentService;
 @RequestMapping("/comments")
 @CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
 public class CommentController {
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	CommentService commentService;
 
@@ -45,12 +47,14 @@ public class CommentController {
 		log.info("finding comment where post is id:");
 		return ResponseEntity.ok(commentService.findByPostId(postId));
 	}
+	
 	@GetMapping("/findUser")
 	public ResponseEntity<Optional<User>> findAllUsers(@RequestParam("id") int comId) {
 		//find user based on comment ID
 		log.info("finding users where comment has id:");
 		return ResponseEntity.ok(commentService.findUserByCommentId(comId));
 	}
+	
 	@GetMapping("/user")
 	public ResponseEntity<List<Comment>> findByUserId(@RequestParam("id") int userId) {
 		log.info("finding comments where users has id:");

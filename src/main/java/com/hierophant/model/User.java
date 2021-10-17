@@ -30,10 +30,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-	// class to represent each user in DB
+	
 	@Id
-	@Column(name = "userId", nullable = false, unique = true, updatable = false) // non-nullable and unique =tru is //
-																					// primary key
+	@Column(name = "userId", nullable = false, unique = true, updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;// unique id for each user
 
