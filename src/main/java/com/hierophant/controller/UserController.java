@@ -36,7 +36,7 @@ public class UserController {
 
 	// our controller needs to call its dependency which is our UserService
 	@Autowired
-	UserService userService;// user serviSce
+	public UserService userService;// user serviSce
 
 	@Autowired
 	private JwtToken jwtUtil;// jwt token import

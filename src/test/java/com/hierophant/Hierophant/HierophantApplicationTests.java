@@ -22,7 +22,6 @@ import com.hierophant.repository.ImageDao;
 import com.hierophant.repository.PostDao;
 import com.hierophant.repository.UserDao;
 import com.hierophant.service.CommentService;
-import com.hierophant.service.ImageService;
 import com.hierophant.service.PostService;
 import com.hierophant.service.UserService;
 
