@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserNotFoundException extends RuntimeException{
 
+	private static final long serialVersionUID = 3624048510665248063L;
+
 	//exceptions for user not found
 	public UserNotFoundException(String message) {
 		super(message);
@@ -16,12 +18,10 @@ public class UserNotFoundException extends RuntimeException{
 
 	public UserNotFoundException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
 	}
 
 	public UserNotFoundException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 	
 	
