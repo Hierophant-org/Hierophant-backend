@@ -1,6 +1,5 @@
 package com.hierophant.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,12 +20,23 @@ public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int imageId;//unique id for each image
-	
+
+	private String imgHtml;//HTML link to template
+
 	private String name;//image given name
 	
     private String type;//image type
-    
+    private String topText;
+    private String bottomText;
     private byte[] pic;//picture in bytes
-    
-	
+
+	public Image(int id , String name , String topText, String bottomText, String type , byte[] pic){
+		this.imageId = id;//id of image
+		this.name = name;
+		this.type = type;
+		this.pic = pic;
+		this.topText=topText;
+		this.bottomText=bottomText;
+	}
+
 }

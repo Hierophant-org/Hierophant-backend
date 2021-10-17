@@ -35,15 +35,15 @@ import com.hierophant.model.Image;
 import com.hierophant.service.ImageService;
 import com.hierophant.service.PostService;
 
-
 @RestController
 @RequestMapping("/images")
 @CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
-
 public class ImageController {
 	private static Logger log = LoggerFactory.getLogger(ImageController.class);
+
 	@Autowired
 	ImageService imageService;
+	
     @Autowired
 	PostService ps;
 	
@@ -68,17 +68,15 @@ public class ImageController {
 		imageService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	  
-	@PostMapping("/upLoad")
-	public ResponseEntity<Image> upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException{
+	
+	@PostMapping("/uploadImage")
+	public ResponseEntity<Image> upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException
+	{
 		try
 		{
-			int id = ps.getPostCount()+1;
-		Image img = new Image( 
-				id , 
-				file.getOriginalFilename() , 
-				file.getContentType() , 
-				file.getBytes()); 
+		//upload a image
+		Image img = new Image(ps.getPostCount() + 1, file.getOriginalFilename(), null, null, file.getContentType(), file.getBytes());
+
 		final Image savedImage = imageService.insert(img);
 		log.info("UpLoad Success, "+savedImage.getName()+" saved to db");
 		return ResponseEntity.ok(savedImage);

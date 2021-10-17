@@ -11,10 +11,7 @@ public class DBConfiguration {
 	//DB config
 	private String driverClassName;
 	private String url;
-	private String username;
-	private String password;
 	
-
 	@Profile("dev")
 	@Bean
 	public String devDatabaseConnection() {

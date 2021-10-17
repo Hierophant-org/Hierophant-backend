@@ -24,7 +24,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 @Component
 @Configuration
 public class JwtToken {
+	
 	private static Logger log = LoggerFactory.getLogger(JwtToken.class);
+	
 	// Might need to change this code;
 	@Value("${secret}")
 	private String secret;
@@ -65,7 +67,14 @@ public class JwtToken {
 	public String getSubject (String token) {
 		//get the subject
 		JWTVerifier verifier = getJWTVerifier();
-		return verifier.verify(token).getSubject();
+		try {
+			log.info("user passed token check");
+			return verifier.verify(token).getSubject();
+			
+		} catch(JWTVerificationException e) {
+			log.error("token has been modified");
+			return "";
+		}
 	}
 
 	private JWTVerifier getJWTVerifier() {

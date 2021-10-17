@@ -26,10 +26,11 @@ import com.hierophant.service.PostService;
 
 @RestController
 @RequestMapping("/posts")
-@CrossOrigin(origins = { "http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/",
-		"http://localhost:4200/" })
+@CrossOrigin(origins = { "http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/" })
 public class PostController {
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	PostService postService;
 
@@ -56,10 +57,11 @@ public class PostController {
 	}
 
 	@GetMapping("/findAllUsers")
-	public ResponseEntity<List<User>> findAllUsers() {
+	public ResponseEntity<User> findAllUsers(@RequestParam("id") Post post) {
 		log.info("finding post users");
 		// find list of users
-		return ResponseEntity.ok(postService.findUserByPost());
+		User u =postService.findUserByPost(post);
+		return ResponseEntity.ok(u);
 	}
 
 	@GetMapping("/user")

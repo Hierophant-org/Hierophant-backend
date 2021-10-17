@@ -25,4 +25,7 @@ public interface PostDao extends JpaRepository<Post, Integer>{
 	//find list of users that posted
 	@Query("SELECT user FROM Post p JOIN p.userId user")
 	public List<User> findAllIncludeUser();
+	
+	@Query("SELECT user FROM Post p JOIN p.userId user WHERE p.postId=?1")
+	public User findPoster(int postId);
 }

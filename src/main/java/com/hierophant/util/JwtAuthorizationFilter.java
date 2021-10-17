@@ -63,15 +63,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 				if (authorizationHeader != null || authorizationHeader.startsWith(Security.TOKEN_PREFIX)) {
 					token = authorizationHeader.substring(7);
 					username = jwtToken.getSubject(token);
+					if(username.isEmpty()) {
+						log.error("no username");
+						return;
+					}
 				}
 				if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 					//if it needs checking
 					log.info("checking");
 					Optional<User> userDetails = userService.findByUserName(username);
-					log.info("details " + userDetails.get().getUsername());
 					if(jwtToken.isTokenValid(userDetails.get().getUsername(), token)) {
 						Authentication auth = jwtToken.getAuthentication(username, null, request);
-						log.info("auth " + auth);
 						SecurityContextHolder.getContext().setAuthentication(auth);
 					}
 				}
