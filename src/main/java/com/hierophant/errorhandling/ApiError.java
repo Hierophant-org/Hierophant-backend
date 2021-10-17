@@ -10,22 +10,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-/*
- * @Data is a convenient shortcut annotation that bundles the features
- * of @ToString , @EqualsAndHashCode , @Getter / @Setter
- * and @RequiredArgsConstructor together: In other words, @Data generates all
- * the boilerplate that is normally associated with simple POJOs (Plain Old Java
- * Objects) and beans
- */
 @Data
 public class ApiError {
-	
-	/*
-	 * This class is designed to represent information about an HTTP Error.
-	 * 
-	 * The structure of this class can be serialized into JSON and sent
-	 * back to the client about what went wrong.
-	 */
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
 	private LocalDateTime timestamp;//timestamp
@@ -64,14 +50,4 @@ public class ApiError {
 		
 		this.subErrors.add(error);
 	}
-	
-	
-	
 }
-
-
-
-
-
-
-

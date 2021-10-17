@@ -23,14 +23,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hierophant.model.Image;
 import com.hierophant.service.ImageService;
 import com.hierophant.service.PostService;
+
 @RestController
 @RequestMapping("/images")
 @CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
-
 public class ImageController {
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	ImageService imageService;
+	
     @Autowired
 	PostService ps;
 	
@@ -67,7 +70,7 @@ public class ImageController {
 	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException
 	{
 		//upload a image
-		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , file.getContentType() , file.getBytes()); 
+		Image img = new Image(ps.getPostCount() + 1, file.getOriginalFilename(), null, null, file.getContentType(), file.getBytes());
 		final Image savedImage = imageService.insert(img);
 		System.out.println("Image Saved!");
 		return savedImage;
