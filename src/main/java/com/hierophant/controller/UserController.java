@@ -103,7 +103,7 @@ public class UserController {
 				return jwtUtil.generateJwtToken(user.get().getUsername());
 			}
 			else {
-				return null;
+				return "No token";
 			}
 		}
 		catch(BadCredentialsException ex) {
