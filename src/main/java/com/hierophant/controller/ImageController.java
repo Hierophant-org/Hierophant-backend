@@ -1,4 +1,5 @@
 package com.hierophant.controller;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -26,19 +27,20 @@ import com.hierophant.service.PostService;
 
 @RestController
 @RequestMapping("/images")
-@CrossOrigin(origins={"http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/","http://localhost:4200/"})
+@CrossOrigin(origins = { "http://hierophant-frontend-bucket.s3-website.us-east-2.amazonaws.com/",
+		"http://localhost:4200/" })
 public class ImageController {
-	
+
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	public ImageService imageService;
-    @Autowired
+	@Autowired
 	public PostService ps;
-	
+
 	@GetMapping("/find")
 	public ResponseEntity<Optional<Image>> findById(@RequestParam("id") int id) {
-		//find based on Id
+		// find based on Id
 		log.info("finding image:");
 		return ResponseEntity.ok(imageService.findById(id));
 	}
@@ -52,27 +54,26 @@ public class ImageController {
 	@PatchMapping("/update")
 	public ResponseEntity<Image> update(@Valid @RequestBody Image i) {
 		log.info("Updating");
-		//update post in DB
+		// update post in DB
 		return ResponseEntity.ok(imageService.update(i));
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable("id") int id) {
-		//delete by Id
+		// delete by Id
 		// Untested
 		log.info("deleting");
 		imageService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@PostMapping("/uploadImage")
-	public Image upLoadImage(@RequestParam("myImage") MultipartFile file)throws IOException
-	{
-		//upload a image
-		Image img = new Image( ps.getPostCount() +1 , file.getOriginalFilename() , null, null, file.getContentType(),   file.getBytes()); 
-		final Image savedImage = imageService.insert(img);
-		System.out.println("Image Saved!");
-		return savedImage;
-		
-	}
+
+//	@PostMapping("/uploadImage")
+//	public Image upLoadImage(@RequestParam("myImage") MultipartFile file) throws IOException {
+//		// upload a image
+//		Image img = new Image(ps.getPostCount() + 1, null, file.getOriginalFilename(), null, null,
+//				file.getContentType(), file.getBytes());
+//		final Image savedImage = imageService.insert(img);
+//		System.out.println("Image Saved!");
+//		return savedImage;
+//	}
 }

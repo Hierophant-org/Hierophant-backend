@@ -1,5 +1,7 @@
 package com.hierophant.Hierophant.modelTests;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -76,5 +78,24 @@ public class CommentModelTests {
 		assertEquals(14, c1.getUpvotes());
 		c1.setUpvotes(21);
 		assertEquals(21,c1.getUpvotes());
+	}
+	@Test
+	void testToString() {
+		assertEquals("Comment(comId=1, userId=User(userId=4, username=testuser, password=testpassword, email=emailperson@gmail.com, posts=[], comments=[]), postId=Post(postId=2, title=testTitle, userId=User(userId=4, username=testuser, password=testpassword, email=emailperson@gmail.com, posts=[], comments=[]), image=Image(imageId=3, imgHtml=title, name=google.com, type=testName, topText=tophat, bottomText=cat, pic=null), comments=[], upvotes=42), commText=Good soup meme, upvotes=14)", c1.toString());
+	}
+
+	@Test
+	void testHashCode() {
+		assertEquals(-965939091, c1.hashCode());
+	}
+	
+	@Test
+	void testHashCode_inccorect() {
+		assertNotEquals(34567894, c1.hashCode());
+	}
+
+	@Test
+	void testEquals() {
+		assertTrue(c1.equals(c1));
 	}
 }
