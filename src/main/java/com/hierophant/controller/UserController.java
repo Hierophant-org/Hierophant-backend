@@ -42,7 +42,7 @@ public class UserController {
 	private JwtToken jwtUtil;// jwt token import
 
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	public AuthenticationManager authenticationManager;
 
 	private static Logger log = LoggerFactory.getLogger(UserController.class);// logger
 

@@ -44,7 +44,6 @@ public class ImageControllerTests {
 		p1 = new Post(2, "testTitle", u1, i1, new ArrayList<Comment>(), 42);
 		c1 = new Comment(1, u1, p1, "Good soup meme", 0);
 	}
-
 	@AfterEach
 	public void after() {
 		imageCon.imageService = mockComServ;
@@ -53,38 +52,26 @@ public class ImageControllerTests {
 		p1 = null;
 		c1 = null;
 	}
-
 	@Test
 	void testFindByIdFinds() {
 		int id = i1.getImageId();
 		Optional<Image> oC = Optional.of(i1);
 		when(mockComServ.findById(id)).thenReturn(oC);
-
 		assertEquals(ResponseEntity.ok(oC), imageCon.findById(id));
 	}
-
 	@Test
 	void testInsert() {
 		when(mockComServ.insert(i1)).thenReturn(i1);
-
 		assertEquals(ResponseEntity.ok(i1), imageCon.insert(i1));
 	}
-
-	@Test
-	void testUpdate() {
-		when(mockComServ.update(i1)).thenReturn(i1);
-		assertEquals(ResponseEntity.ok(i1), imageCon.update(i1));
-	}
-
 	@Test
 	void testDelete() {
 		assertEquals(ResponseEntity.noContent().build(), imageCon.deleteById(i1.getImageId()));
 		verify(mockComServ).deleteById(i1.getImageId());
 	}
-//	@Test
-//	void testUploadImage() {
-//		when(mockPostServ.getPostCount()).thenReturn(10);
-//		assertEquals(ResponseEntity.noContent().build(), imageCon.deleteById(i1.getImageId()));
-//		verify(mockComServ).deleteById(i1.getImageId());
-//	}
+	@Test
+	void testUpdate() {
+		when(mockComServ.update(i1)).thenReturn(i1);
+		assertEquals(ResponseEntity.ok(i1), imageCon.update(i1));
+	}
 }

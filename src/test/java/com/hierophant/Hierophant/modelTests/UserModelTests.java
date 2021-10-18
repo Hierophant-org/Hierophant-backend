@@ -1,5 +1,8 @@
 package com.hierophant.Hierophant.modelTests;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -44,44 +47,80 @@ public class UserModelTests {
 		p1 = null;
 		c1 = null;
 	}
+
+	@Test
+	void testToString() {
+		assertEquals("User(userId=4, username=testuser, password=testpassword, email=emailperson@gmail.com, posts=[], comments=[])", u1.toString());
+	}
+
+	@Test
+	void testHashCode() {
+		assertEquals(979153047, u1.hashCode());
+	}
+	
+	@Test
+	void testHashCode_inccorect() {
+		assertNotEquals(34567894, u1.hashCode());
+	}
+
+	@Test
+	void testEquals() {
+		assertTrue(u1.equals(u1));
+	}
+	@Test
+	void testEquals_False_later() {
+		User u2 = u1;
+		u1.setEmail("this@email.com");
+		assertTrue(u1.equals(u2));
+	}
+	@Test
+	void testEquals_False() {
+		User u2 = new User(11, "nottestuser", "testdpassword", "emaisdlperson@gmail.com", null ,null);
+		assertFalse(u1.equals(u2));
+	}
 	@Test
 	void testGetandSetId() {
 		assertEquals(4, u1.getUserId());
 		u1.setUserId(5);
-		assertEquals(5,u1.getUserId());
+		assertEquals(5, u1.getUserId());
 	}
+
 	@Test
 	void testGetandSetUsername() {
 		assertEquals("testuser", u1.getUsername());
 		u1.setUsername("testuser2");
-		assertEquals("testuser2",u1.getUsername());
+		assertEquals("testuser2", u1.getUsername());
 	}
+
 	@Test
 	void testGetandSetComments() {
 		assertEquals(new ArrayList<Comment>(), u1.getComments());
-		ArrayList<Comment> a=new ArrayList<Comment>();
+		ArrayList<Comment> a = new ArrayList<Comment>();
 		a.add(c1);
 		u1.setComments(a);
-		assertEquals(a,u1.getComments());
+		assertEquals(a, u1.getComments());
 	}
+
 	@Test
 	void testGetandSetEmail() {
 		assertEquals("emailperson@gmail.com", u1.getEmail());
 		u1.setEmail("person@gmail.com");
-		assertEquals("person@gmail.com",u1.getEmail());
+		assertEquals("person@gmail.com", u1.getEmail());
 	}
+
 	@Test
 	void testGetandSetPassword() {
 		assertEquals("testpassword", u1.getPassword());
 		u1.setPassword("noTestpassword");
-		assertEquals("noTestpassword",u1.getPassword());
+		assertEquals("noTestpassword", u1.getPassword());
 	}
+
 	@Test
 	void testGetandSetPosts() {
 		assertEquals(new ArrayList<Post>(), u1.getPosts());
 		ArrayList<Post> p = new ArrayList<Post>();
 		p.add(p1);
 		u1.setPosts(p);
-		assertEquals(p,u1.getPosts());
+		assertEquals(p, u1.getPosts());
 	}
 }
