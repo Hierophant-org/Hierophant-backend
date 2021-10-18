@@ -1,5 +1,7 @@
 package com.hierophant.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,6 +116,12 @@ public class PostService {
 		try {
 			// find all posts
 			List<Post> p = postDao.findAll();
+			Collections.sort(p, new Comparator<Post>() {
+				@Override
+				public int compare(Post p1, Post p2) {
+					return p2.getPostId() - (p1.getPostId());
+				}
+			});
 			for (Post pos : p) {
 				pos.setUserId(postDao.findPoster(pos.getPostId()));
 			}
