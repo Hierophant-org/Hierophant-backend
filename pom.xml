@@ -27,6 +27,12 @@
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.12.78</version>
 		</dependency>
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<version>3.7.2</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
