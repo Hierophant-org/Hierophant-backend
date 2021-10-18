@@ -17,6 +17,8 @@ import com.hierophant.model.Post;
 import com.hierophant.model.Token;
 import com.hierophant.model.User;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 public class TokenModelTests {
 	static User u1;
 	static Image i1;
@@ -70,5 +72,9 @@ public class TokenModelTests {
 	@Test
 	void testEquals() {
 		assertTrue(t.equals(t));
+	}
+	@Test
+	public void simpleEqualsContract() {
+	    EqualsVerifier.simple().forClass(Token.class).verify();
 	}
 }

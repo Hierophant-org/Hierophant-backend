@@ -16,6 +16,8 @@ import com.hierophant.model.Image;
 import com.hierophant.model.Post;
 import com.hierophant.model.User;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 public class AuthRequestModelTests {
 	static User u1;
 	static Image i1;
@@ -70,5 +72,9 @@ public class AuthRequestModelTests {
 	@Test
 	void testEquals() {
 		assertTrue(aR.equals(aR));
+	}
+	@Test
+	public void simpleEqualsContract() {
+	    EqualsVerifier.simple().forClass(AuthRequest.class).verify();
 	}
 }

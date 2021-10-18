@@ -15,11 +15,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
 import com.hierophant.controller.CommentController;
+import com.hierophant.model.AuthRequest;
 import com.hierophant.model.Comment;
 import com.hierophant.model.Image;
 import com.hierophant.model.Post;
 import com.hierophant.model.User;
 import com.hierophant.service.CommentService;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class PostModelTests {
 	static User u1;
@@ -122,5 +125,9 @@ public class PostModelTests {
 	@Test
 	void testEquals_Wrong_Type() {
 		assertFalse(p1.equals(p));
+	}
+	@Test
+	public void simpleEqualsContract() {
+	    EqualsVerifier.simple().forClass(Post.class).verify();
 	}
 }

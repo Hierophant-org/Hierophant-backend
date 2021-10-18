@@ -14,11 +14,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
 import com.hierophant.controller.CommentController;
+import com.hierophant.model.AuthRequest;
 import com.hierophant.model.Comment;
 import com.hierophant.model.Image;
 import com.hierophant.model.Post;
 import com.hierophant.model.User;
 import com.hierophant.service.CommentService;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CommentModelTests {
 	static User u1;
@@ -97,5 +100,9 @@ public class CommentModelTests {
 	@Test
 	void testEquals() {
 		assertTrue(c1.equals(c1));
+	}
+	@Test
+	public void simpleEqualsContract() {
+	    EqualsVerifier.simple().forClass(Comment.class).verify();
 	}
 }
