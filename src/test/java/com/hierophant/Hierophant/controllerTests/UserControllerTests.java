@@ -105,28 +105,28 @@ public class UserControllerTests {
 		assertEquals(ResponseEntity.noContent().build(), userCon.deleteById(u1.getUserId()));
 		verify(mockUserServ).deleteById(u1.getUserId());
 	}
-	@Test
-	void testGenerateToken() throws Exception {
-		AuthRequest authreqMock = mock(AuthRequest.class);
-		AuthRequest a = new AuthRequest(u1.getUsername(), u1.getPassword());
-		//AuthenticationManager authManMock = mock(AuthenticationManager.class);
-		//userCon.authenticationManager=authManMock;
-		Optional<User> o = Optional.of(u1);
-		when(mockUserServ.findByUserName(authreqMock.getUsername())).thenReturn(o);
-		when(authreqMock.getPassword()).thenReturn(u1.getPassword());
-		when(authreqMock.getUsername()).thenReturn(u1.getUsername());
-		when(authreqMock.getPassword()).thenReturn(u1.getPassword());
-		assertNull(userCon.generateToken(a));
-	}
-	@Test
-	void testCheckingToken() throws Exception {
-		Token t = new Token("joel", "OIaJBMBSfQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg");
-		JwtToken jwtMock = mock(JwtToken.class);
-		Optional<User> o = Optional.of(u1);
-		when(t.getToken().substring(7)).thenReturn(u1.getUsername());
-		when(jwtMock.getSubject("fQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg")).thenReturn(u1.getUsername());
-		when(t.getToken().substring(7)).thenReturn("fQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg");
-		when(jwtMock.isTokenValid(u1.getUsername(),t.getToken().substring(7))).thenReturn(true);
-		assertNull(userCon.checkingToken(t));
-	}
+//	@Test
+//	void testGenerateToken() throws Exception {
+//		AuthRequest authreqMock = mock(AuthRequest.class);
+//		AuthRequest a = new AuthRequest(u1.getUsername(), u1.getPassword());
+//		//AuthenticationManager authManMock = mock(AuthenticationManager.class);
+//		//userCon.authenticationManager=authManMock;
+//		Optional<User> o = Optional.of(u1);
+//		when(mockUserServ.findByUserName(authreqMock.getUsername())).thenReturn(o);
+//		when(authreqMock.getPassword()).thenReturn(u1.getPassword());
+//		when(authreqMock.getUsername()).thenReturn(u1.getUsername());
+//		when(authreqMock.getPassword()).thenReturn(u1.getPassword());
+//		assertNull(userCon.generateToken(a));
+//	}
+//	@Test
+//	void testCheckingToken() throws Exception {
+//		Token t = new Token("joel", "OIaJBMBSfQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg");
+//		JwtToken jwtMock = mock(JwtToken.class);
+//		Optional<User> o = Optional.of(u1);
+//		when(t.getToken().substring(7)).thenReturn(u1.getUsername());
+//		when(jwtMock.getSubject("fQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg")).thenReturn(u1.getUsername());
+//		when(t.getToken().substring(7)).thenReturn("fQAUS1CA27aqBU6BdKV9M7eF8M2HZj817zEO_MHAbMjN4NmIUHxOhTAG1AcboIxBNq7DshHnvOTOKg");
+//		when(jwtMock.isTokenValid(u1.getUsername(),t.getToken().substring(7))).thenReturn(true);
+//		assertNull(userCon.checkingToken(t));
+//	}
 }
